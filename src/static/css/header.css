@@ -2,7 +2,7 @@
     margin: 20px auto 0 auto;
     width: 900px;
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: 1fr auto auto;
     gap: 10px;
 }
 
@@ -40,44 +40,16 @@
     pointer-events: none;
 }
 
-#filters:hover p:after, #download-users:hover p:after{
-    visibility: visible;
-    margin-left: -7px;
-    padding: 0px 5px;
-    animation: fadein 2s;
-    -moz-animation: fadein 2s; /* Firefox */
-    -webkit-animation: fadein 2s; /* Safari and Chrome */
-    -o-animation: fadein 2s; /* Opera */
-}
-#filters:hover p:after {
-    content: 'Список фильтров';
-}
-#download-users:hover p:after {
-    content: 'Скачать пользователей';
-}
-#filters:hover p{
-    font-size: 10pt;
-    visibility: hidden;
-    width: 170px;
-}
-#filters:hover {
-    width: 170px;
-}
-#download-users:hover p{
-    font-size: 10pt;
-    visibility: hidden;
-    width: 170px;
-}
-#download-users:hover {
-    width: 170px;
-}
-
 .filter-menu {
     margin: 0 auto;
     width: 880px;
-    background: #38455b;
+    background: #38455bf2;
     padding: 10px;
     color: white;
+    position: absolute;
+    z-index: 100;
+    left: 0;
+    right: 0;
 }
 
 .filter-menu>p {

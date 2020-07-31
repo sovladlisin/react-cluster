@@ -49,15 +49,15 @@ export class Search extends Component {
         return (
             <Fragment>
                 <div className="header">
-                    <button id="filters" onClick={this.showFilterMenu}>
-                        <p><i className="fas fa-clipboard-list"></i></p>
-                    </button>
                     <div className="search">
                         <input></input>
                         <p><i className="fas fa-search"></i></p>
                     </div>
-                    <button id="download-users"onClick={this.downloadUserList}>
+                    <button title="Скачать пользователей" id="download-users"onClick={this.downloadUserList}>
                         <p><i className="fas fa-file-download"></i></p>
+                    </button>
+                    <button title="Список фильтров" id="filters" onClick={this.showFilterMenu}>
+                        <p><i className="fas fa-clipboard-list"></i></p>
                     </button>
                 </div>
                 {this.renderFilterMenu()}
