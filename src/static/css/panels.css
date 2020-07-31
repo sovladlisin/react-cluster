@@ -16,12 +16,23 @@
     color: white;
     font-size: 16pt;
     transition: 0.3s;
-    position: fixed;
     bottom: 25px;
+    position: fixed;
     left: 25px;
-    z-index: 99;
 }
 
+#toggle-left-panel p{
+    margin-top: 12px;
+}
+
+#toggle-left-panel:hover {
+    transform: scale(1.08);
+}
+
+#toggle-left-panel:hover .highlight {
+    visibility: visible;
+    opacity: 1;
+}
 
 #close {
     position: relative;

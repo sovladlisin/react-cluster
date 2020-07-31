@@ -15,6 +15,10 @@
     transition: 0.3s;
 }
 
+.header button:hover{
+    transform: scale(1.08);
+}
+
 .search input {
     display: inline-block;
     width: 100%;
@@ -69,4 +73,22 @@
 .filter-menu button:hover {
     background-color: white;
     color: #38455b;
+}
+
+.highlight {
+    border-bottom: 2px solid #38455b;
+    width: 50px;
+    height: 55px;
+    opacity: 0;
+    transition: 0.3s;
+    margin-top: -40px;
+}
+
+#download-users:hover .highlight, #filters:hover .highlight {
+    visibility: visible;
+    opacity: 1;
+}
+
+.header button p {
+    margin-top: 12px;
 }

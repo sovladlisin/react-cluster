@@ -27,7 +27,10 @@ class App extends Component {
       return (
       <Fragment>
           {!this.state.left_panel_state ? 
-            <button title="Список фильтров" id="toggle-left-panel" onClick={this.toggleLeftPanel}><p><i className="fas fa-chart-pie"></i></p></button>  
+            <button title="Панель управления" id="toggle-left-panel" onClick={this.toggleLeftPanel}>
+              <p><i className="fas fa-chart-pie"></i></p>
+              <div className="highlight"></div>
+            </button>  
             : null}
           <Search />
           <Tiles />

@@ -55,9 +55,11 @@ export class Search extends Component {
                     </div>
                     <button title="Скачать пользователей" id="download-users"onClick={this.downloadUserList}>
                         <p><i className="fas fa-file-download"></i></p>
+                        <div className="highlight"></div>
                     </button>
                     <button title="Список фильтров" id="filters" onClick={this.showFilterMenu}>
                         <p><i className="fas fa-clipboard-list"></i></p>
+                        <div className="highlight"></div>
                     </button>
                 </div>
                 {this.renderFilterMenu()}
