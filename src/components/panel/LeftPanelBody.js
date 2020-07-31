@@ -9,15 +9,15 @@ export class LeftPanelBody extends Component {
 
 
     componentDidMount(){
-        const $panel = document.getElementsByClassName("left-panel")[0];
-        $panel.animate([
-            { left: '0px' }, 
-            ],{
-              duration: 400, 
-              fill: "forwards", 
-              easing: "cubic-bezier(0.42, 0, 0.58, 1)"
-            }
-        );
+        // const $panel = document.getElementsByClassName("left-panel")[0];
+        // $panel.animate([
+        //     { left: '0' }, 
+        //     ],{
+        //       duration: 400, 
+        //       fill: "forwards", 
+        //       easing: "cubic-bezier(0.42, 0, 0.58, 1)"
+        //     }
+        // );
 
 
         // TODO: get actuall groups

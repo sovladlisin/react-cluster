@@ -34,12 +34,14 @@ export class Tiles extends Component {
     renderData = () => {
         const data = this.state.data
 
-        const page_number =  this.state.page_number
-        const elements_on_page = this.state.elements_on_page
+        const page_number =  parseInt(this.state.page_number)
+        const elements_on_page = parseInt(this.state.elements_on_page)
         const start = (page_number - 1) * elements_on_page
         const end = start + elements_on_page
 
+
         const output = data.slice(start, end)
+        console.log(start, end, output)
         return output.map(item => {
             return (
                     <div key={item.quant} className="tile">

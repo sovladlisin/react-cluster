@@ -2,7 +2,7 @@
     width: 400px;
     height: 100%;
     top: 0;
-    left: -400px;
+    left: 0;
     position: fixed;
     background: #38455bf0;
     transition: 0.3s;

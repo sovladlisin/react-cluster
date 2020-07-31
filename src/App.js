@@ -7,6 +7,8 @@ import Search from './components/header/Search';
 import LeftPanelBody from './components/panel/LeftPanelBody';
 import Tiles from './components/display/Tiles';
 
+import { Transition } from 'react-transition-group'
+
 import React, { Component, Fragment } from 'react';
 import ReactDOM from 'react-dom';
 
