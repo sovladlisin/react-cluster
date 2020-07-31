@@ -1,22 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
 import './static/css/all.css';
 import './static/css/tiles.css';
+import './static/css/panels.css';
 import './static/css/fixer.css';
 import './static/css/header.css';
 import Search from './components/header/Search';
-import LeftPanelBody from './components/panel/SidePanelBody';
+import LeftPanelBody from './components/panel/LeftPanelBody';
 import Tiles from './components/display/Tiles';
 
-function App() {
-  return (
-    <div className="App">
-      <Search />
-      <Tiles />
-      <LeftPanelBody />
+import React, { Component, Fragment } from 'react';
+import ReactDOM from 'react-dom';
 
-    </div>
-  );
+class App extends Component {
+
+  state = {
+    left_panel_state: false
+  }
+
+  toggleLeftPanel = () => {
+    this.setState({left_panel_state: !this.state.left_panel_state})
+  }
+
+
+  render() {
+      return (
+      <Fragment>
+          {!this.state.left_panel_state ? 
+            <button id="toggle-left-panel" onClick={this.toggleLeftPanel}><p><i className="fas fa-chart-pie"></i></p></button>  
+            : null}
+          <Search />
+          <Tiles />
+          { this.state.left_panel_state ? <LeftPanelBody toggleLeftPanel={this.toggleLeftPanel}/> : null}
+      </Fragment>
+    )
+  }
 }
 
-export default App;
+export default App

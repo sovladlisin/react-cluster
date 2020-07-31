@@ -1,0 +1,204 @@
+.left-panel {
+    width: 400px;
+    height: 100%;
+    top: 0;
+    left: -400px;
+    position: fixed;
+    background: #38455bf0;
+    transition: 0.3s;
+}
+
+
+#toggle-left-panel{
+    width: 50px;
+    height: 50px;
+    background: #38455b;
+    color: white;
+    font-size: 16pt;
+    transition: 0.3s;
+    position: fixed;
+    bottom: 25px;
+    left: 25px;
+    z-index: 99
+}
+
+#toggle-left-panel:hover {
+    width: 170px;
+}
+
+#toggle-left-panel:hover p:after{
+    visibility: visible;
+    margin-left: -7px;
+    padding: 0px 5px;
+    animation: fadein 2s;
+    -moz-animation: fadein 2s; /* Firefox */
+    -webkit-animation: fadein 2s; /* Safari and Chrome */
+    -o-animation: fadein 2s; /* Opera */
+}
+#toggle-left-panel:hover p:after {
+    content: 'Панель управления';
+}
+#toggle-left-panel:hover p{
+    font-size: 10pt;
+    visibility: hidden;
+    width: 170px;
+}
+
+#close {
+    position: relative;
+    top: 0;
+    left: 345px;
+    color: white;
+    transition: 0.3s;
+    border-radius: 30px;
+    width: 20px;
+    height: 20px;
+    line-height: 22px;
+    text-align: center;
+}
+
+#close:hover {
+    background: white;
+    border-radius: 30px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    color: #445065;
+}
+
+.panel-body {
+    width: 350px;
+    height: auto;
+    margin: 10px auto;
+}
+
+p.title {
+    color: white;
+    font-weight: 500;
+    margin: 10px 0 20px 0;
+}
+
+p.block-title {
+    color: white;
+    margin: 30px 0 10px 0;
+    border-bottom: 1px solid white;
+    padding-bottom: 8px;
+    font-size: 10pt;
+}
+
+.group-line {
+    width: 350px;
+    height: 20px;
+    margin: 10px 0;
+    display: grid;
+    grid-template-columns: 80px 240px 20px;
+}
+
+
+
+.group-line>p {
+    color: white;
+    float: left;
+    font-size: 9pt;
+    line-height: 20px;
+    margin-right: 15px;
+}
+
+.progress {
+    float: left;
+    width: 230px;
+    border: 1px solid white;
+    height: 20px;
+}
+
+.bar {
+    height: 14px;
+    background: white;
+    margin: 3px;
+}
+
+.group-line button {
+    color: white;
+    transition: 0.3s;
+    font-size: 11pt;
+    width: 20px;
+    height: 20px;
+    line-height: 10px;
+}
+.group-line button:hover {
+    color: #445065;
+    background-color: white;
+    border-radius: 30px;
+    
+}
+
+.new-request label {
+    color: white;
+    font-size: 9pt;
+    margin-right: 5px;
+    line-height: 20px;
+    height: 20px;
+    float: left;
+    margin-top: 5px;
+}
+
+.new-request input {
+    -webkit-box-shadow: 0px 2px 0px 0px rgb(35,45,65, 0.3);
+    -moz-box-shadow: 0px 2px 0px 0px rgb(35,45,65, 0.3);
+    box-shadow: 0px 2px 0px 0px rgb(35,45,65, 0.3);
+    height: 20px;
+    width: 200px;
+    padding-left: 10px;
+    float: right;
+    margin-top: 5px;
+    font-size: 9pt;
+}
+
+.new-request select {
+    -webkit-box-shadow: 0px 2px 0px 0px rgb(35,45,65, 0.3);
+    -moz-box-shadow: 0px 2px 0px 0px rgb(35,45,65, 0.3);
+    box-shadow: 0px 2px 0px 0px rgb(35,45,65, 0.3);
+    height: 20px;
+    width: 210px;
+    padding-left: 10px;
+    float: right;
+    margin-top: 5px;
+    font-size: 9pt;
+}
+
+label.data {
+    float: left;
+    width: 350px;
+}
+
+.new-request textarea {
+    resize: none;
+    width: 330px;
+    height: 310px;
+    margin-top: 10px;
+    background: #ffffff00;
+    border: 1px solid white;
+    padding: 10px;
+    font-size: 9pt;
+}
+
+button.submit {
+    background: rgba(255, 255, 255, 0);
+    width: 110px;
+    height: 30px;
+    margin-top: 5px;
+    float: right;
+    font-size: 10pt;
+    transition: 0.3s;
+    border: 1px solid white;
+    color: white;
+
+
+}
+
+button.submit:hover {
+    background: white;
+    color: #434f64;
+    border: none;
+    cursor: pointer;
+}
