@@ -1,10 +1,13 @@
 import React, { Component, Fragment } from 'react'
+import Alerts from '../alerts/Alerts'
 
 export class Search extends Component {
 
     state = {
         filterMenu: false,
-        selected_filter: null
+        selected_filter: null,
+        alert: false,
+        alert_message: ""
     }
 
     showFilterMenu = () => {
@@ -17,6 +20,12 @@ export class Search extends Component {
 
     onFilterChange = (e) => {
         this.setState({selected_filter : e.target.id})
+    }
+
+    toggleAlerts = (message) => {
+        if (message.length == 0){
+            this.setState({alert: !this.state.alert, alert_message: message})
+        }
     }
 
     renderFilterMenu = () => {
@@ -62,7 +71,9 @@ export class Search extends Component {
                         <div className="highlight"></div>
                     </button>
                 </div>
+
                 {this.renderFilterMenu()}
+                {this.state.alert ? <Alerts toggleAlerts={this.toggleAlerts}></Alerts> : null}
             </Fragment>
         )
     }

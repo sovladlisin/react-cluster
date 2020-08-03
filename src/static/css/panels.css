@@ -1,13 +1,20 @@
-.left-panel {
+.left-panel, .right-panel {
     width: 400px;
     height: 100%;
     top: 0;
-    left: 0;
     position: fixed;
     background: #38455bf0;
     transition: 0.3s;
 }
 
+.left-panel{
+    left: 0;
+}
+
+.right-panel{
+    right: 0;
+    overflow: auto;
+}
 
 #toggle-left-panel{
     width: 50px;
@@ -192,4 +199,46 @@ button.submit:hover {
     color: #434f64;
     border: none;
     cursor: pointer;
+}
+
+.item {
+    width: 105px;
+    height: 105px;
+    background: white;
+    position: relative;
+}
+
+.items {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: repeat(6, 1fr);
+    grid-gap: 17px;
+    gap: 17px;
+    margin-top: 15px;
+}
+
+.item-highlight {
+    width: 105px;
+    height: 105px;
+    padding: 3px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    border: 2px solid white;
+    z-index: 99;
+}
+
+.item-highlight p {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    bottom: 0;
+    right: 0;
+    font-size: 7pt;
+    background: #445065;
+    color: white;
+    padding: 4px;
+    margin: 0 2px 2px 0;
+    line-height: 12px;
 }
