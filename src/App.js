@@ -61,6 +61,10 @@ class App extends Component {
     return this.state.cluster_panel_state
   }
 
+  componentDidMount() {
+    const $loading_screen = document.getElementById("loading");
+    $loading_screen.style.visibility = "hidden"
+  }
 
 
   render() {
