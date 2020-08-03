@@ -13,6 +13,7 @@ export class Tiles extends Component {
         number_of_clusters: null,
         data: [], //temporary
         selected_clusters: [],
+        opened_cluster: null
         // ctrl: false
     }
 
@@ -53,6 +54,7 @@ export class Tiles extends Component {
         }
         else {
             this.props.openCluster(cluster_id, quant)
+            this.setState({ opened_cluster: cluster_id })
         }
     }
 
@@ -66,14 +68,20 @@ export class Tiles extends Component {
 
         const output = data.slice(start, end)
 
+        const cluster_panel_state = this.props.getClusterPanelState()
         return output.map(item => {
             const selected = this.state.selected_clusters.includes(item.id) ? true : false
+
+            const selected_cluster_check = cluster_panel_state ? this.state.opened_cluster : null
+            const opened_cluster = selected_cluster_check == item.id ? true : false
+
             const highlight_style = selected ? {} : { visibility: "hidden" }
             const tile_style = selected ? { boxShadow: "none" } : {}
             return (
                 <div key={item.quant} className="tile" style={tile_style} onClick={() => this.selectCluster(item.id, item.quant)} >
                     <div className="counter">
-                        {selected ? <i class="fas fa-check" style={{ fontSize: "8pt" }}></i> : item.quant}
+                        {opened_cluster ? <i class="far fa-eye" style={{ fontSize: "11pt" }}></i> :
+                            selected ? <i class="fas fa-check" style={{ fontSize: "8pt" }}></i> : item.quant}
                     </div>
                     <img url={item.thumbnail}></img>
                     <div className="selected" style={highlight_style}>

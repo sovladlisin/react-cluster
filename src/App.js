@@ -57,6 +57,11 @@ class App extends Component {
 
   }
 
+  getClusterPanelState = () => {
+    return this.state.cluster_panel_state
+  }
+
+
 
   render() {
     return (
@@ -78,7 +83,7 @@ class App extends Component {
           </button>
           : null}
         <Search />
-        <Tiles getCtrl={this.getCtrl} openCluster={this.openCluster} />
+        <Tiles getCtrl={this.getCtrl} openCluster={this.openCluster} getClusterPanelState={this.getClusterPanelState} />
         {this.state.left_panel_state ? <LeftPanelBody toggleLeftPanel={this.toggleLeftPanel} /> : null}
         {this.state.cluster_panel_state ? <ClusterPanelBody getCtrl={this.getCtrl} closeCluster={this.closeCluster} quant={this.state.quant} cluster_id={this.state.current_cluster_id} /> : null}
       </Fragment>
