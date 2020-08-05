@@ -206,6 +206,7 @@ button.submit:hover {
     height: 105px;
     background: white;
     position: relative;
+    cursor: pointer;
 }
 
 .items {
@@ -241,4 +242,16 @@ button.submit:hover {
     padding: 4px;
     margin: 0 2px 2px 0;
     line-height: 12px;
+}
+
+button.select-all-items {
+    background: white;
+    color: #424e63;
+    font-size: 9pt;
+    padding: 5px;
+    float: right;
+}
+.item .thumbnail {
+    width: 85px;
+    height: 85px;
 }

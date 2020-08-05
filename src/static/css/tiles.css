@@ -27,7 +27,7 @@
 }
 
 .counter {
-    position: relative;
+    position: absolute;
     background: #38455B;
     color: white;
     width: 25px;
@@ -36,12 +36,15 @@
     text-align: center;
     border: 5px solid #eaf4f4;
     bottom: 13px;
-    left: 80px;
+    right: -15px;
+    top: -15px;
     font-size: 10pt;
 }
 .navigation {
-    width: 900px;
-    margin: 25px auto;
+    width: 100%;
+    width: -moz-available;          /* WebKit-based browsers will ignore this. */
+    width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+    width: fill-available;
     height: 30px;
     background: #38455b;
     color: white;
@@ -76,4 +79,31 @@ div.navigation :last-child {float: right;padding-right: 13px;}
     transform: translate(-50%,-50%);
     z-index: -1;
     border: 2px solid #38455b;
+}
+.thumbnail {
+    width: 80px;
+    height: 80px;
+    padding: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-clip: content-box;
+}
+
+.panels button {
+    display: inline-block;
+    font-size: 10pt;
+    color: white;
+    height: 30px;
+    margin-left: 10px;
+    padding: 0 10px;
+    background: #38455b;
+    transition: 0.3s;
+}
+
+.panels {
+    width: 900px;
+    margin: 25px auto;
+    display: grid;
+    grid-template-columns: 1fr auto auto;
 }

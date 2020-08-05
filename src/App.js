@@ -13,6 +13,7 @@ import React, { Component, Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import ClusterPanelBody from './components/panel/ClusterPanelBody';
+import Slide from './components/display/Slide';
 
 
 class App extends Component {
@@ -22,6 +23,9 @@ class App extends Component {
     cluster_panel_state: false,
     ctrl: false,
     current_cluster_id: null,
+
+    current_slide_url: "",
+    slide_state: false,
 
     quant: 0
   }
@@ -66,6 +70,14 @@ class App extends Component {
     $loading_screen.style.visibility = "hidden"
   }
 
+  openImage = (url) => {
+    this.setState({ current_slide_url: url, slide_state: true })
+  }
+
+  closeImage = () => {
+    this.setState({ current_slide_url: "", slide_state: false })
+  }
+
 
   render() {
     return (
@@ -87,9 +99,10 @@ class App extends Component {
           </button>
           : null}
         <Search />
+        {this.state.slide_state ? <Slide closeImage={this.closeImage} url={this.state.current_slide_url} /> : null}
         <Tiles getCtrl={this.getCtrl} openCluster={this.openCluster} getClusterPanelState={this.getClusterPanelState} />
         {this.state.left_panel_state ? <LeftPanelBody toggleLeftPanel={this.toggleLeftPanel} /> : null}
-        {this.state.cluster_panel_state ? <ClusterPanelBody getCtrl={this.getCtrl} closeCluster={this.closeCluster} quant={this.state.quant} cluster_id={this.state.current_cluster_id} /> : null}
+        {this.state.cluster_panel_state ? <ClusterPanelBody openImage={this.openImage} getCtrl={this.getCtrl} closeCluster={this.closeCluster} quant={this.state.quant} cluster_id={this.state.current_cluster_id} /> : null}
       </Fragment>
     )
   }
