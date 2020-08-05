@@ -207,12 +207,20 @@ button.submit:hover {
     background: white;
     position: relative;
     cursor: pointer;
+    transition: 0.1s;
+    border: 2px solid #424e63;
+}
+
+.item:hover{
+    outline: 2px solid white;
+    transform: translate(-2px,-2px);
+    transform: scale(1.07);
 }
 
 .items {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: repeat(6, 1fr);
+    grid-template-columns: 105px 105px 105px;
+    grid-template-rows: repeat(6, 105px);
     grid-gap: 17px;
     gap: 17px;
     margin-top: 15px;
