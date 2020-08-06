@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import Background from '../static/background.png';
+import Background from '../static/background.jpg';
 import { Link } from 'react-router-dom';
 
 
