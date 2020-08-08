@@ -104,7 +104,6 @@ button:hover, a:hover{
 }
 a {
     text-decoration: none;
-    color: black;
 }
 
 button:focus {

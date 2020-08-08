@@ -9,6 +9,9 @@ import { stringify } from 'qs';
 import ReactLinkify from 'react-linkify';
 import { post } from 'jquery';
 
+import Background from '../../static/background.jpg';
+
+
 export class MainParser extends Component {
 
     static propTypes = {
@@ -44,6 +47,8 @@ export class MainParser extends Component {
     }
 
     submitPostByLink = () => {
+        document.getElementById('post_input').value = "";
+
         var post_link = this.state.post_link
         if (post_link.indexOf('-') > 0) {
             const post_id = post_link.split('-')[1]
@@ -66,6 +71,9 @@ export class MainParser extends Component {
         return posts.map(post => {
             const owner = post.owner_data.response[0]
             const content = post.post_data.response[0]
+
+            console.log(content)
+
             var link = "https://vk.com/wall" + content.from_id + "_" + content.id
             var name = ''
             var photo = ''
@@ -77,6 +85,8 @@ export class MainParser extends Component {
                 name = owner.first_name + ' ' + owner.last_name
                 photo = owner.photo_50
             }
+
+            const views_count = content.views === undefined ? null : content.views.count
 
             return (
                 <Fragment>
@@ -94,9 +104,10 @@ export class MainParser extends Component {
                             </div>
                         </div>
                         <div className="post-footer">
-                            <p className="likes">Лайки: {content.likes.count}</p>
-                            <p className="reposts">Репосты: {content.reposts.count}</p>
-                            <p className="comments">Комментарии: {content.comments.count}</p>
+                            <p className="likes"><i class="fas fa-heart"></i> {content.likes.count}</p>
+                            <p className="reposts"><i class="fas fa-retweet"></i> {content.reposts.count}</p>
+                            <p className="comments"><i class="fas fa-comment-alt"></i> {content.comments.count}</p>
+                            <p className="views"><i class="fas fa-eye"></i> {views_count}</p>
                         </div>
                     </div>
                 </Fragment>
@@ -136,8 +147,10 @@ export class MainParser extends Component {
     render() {
         return (
             <Fragment>
+                <div className="background" style={{ backgroundImage: 'url("' + Background + '")' }}></div>
+
                 <div className="add-new-post">
-                    <input name="post_link" onChange={this.onChange} placeholder="Введите ссылку на запись"></input>
+                    <input id="post_input" name="post_link" onChange={this.onChange} placeholder="Введите ссылку на запись"></input>
                     <button id="submit_post" onClick={this.submitPostByLink}>Загрузить запись</button>
                 </div>
                 <div className="post-container">
