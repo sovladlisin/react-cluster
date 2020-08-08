@@ -4,8 +4,7 @@ import { $CombinedState } from "redux";
 import $, { data } from "jquery"
 
 
-export const getWall = (token, id) => dispatch => {
-
+export const getWall = (token, id, user) => dispatch => {
     $.ajax({
         url: 'https://api.vk.com/method/wall.getById?posts=' + id + '&access_token=' + token + "&v=5.122",
         type: 'GET',
@@ -13,8 +12,19 @@ export const getWall = (token, id) => dispatch => {
     }).done(function (data_post) {
         const owner_id = data_post.response[0].owner_id
 
-
-        if (owner_id < 0) {
+        if (user) {
+            $.ajax({
+                url: 'https://api.vk.com/method/users.get?user_ids=' + owner_id + '&fields=photo_50' + '&access_token=' + token + "&v=5.122",
+                type: 'GET',
+                dataType: 'jsonp',
+            }).done(function (data_owner) {
+                dispatch({
+                    type: GET_WALL,
+                    payload: { post_data: data_post, owner_data: data_owner }
+                });
+            })
+        }
+        else {
             $.ajax({
                 url: 'https://api.vk.com/method/groups.getById?group_id=' + owner_id * (-1) + '&access_token=' + token + "&v=5.122",
                 type: 'GET',
@@ -26,6 +36,7 @@ export const getWall = (token, id) => dispatch => {
                 });
             })
         }
+
     })
 
     // axios({

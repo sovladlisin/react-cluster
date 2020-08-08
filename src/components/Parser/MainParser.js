@@ -7,6 +7,7 @@ import { getWall } from '../../actions/walls'
 import { checkToken } from '../../actions/auth/login'
 import { stringify } from 'qs';
 import ReactLinkify from 'react-linkify';
+import { post } from 'jquery';
 
 export class MainParser extends Component {
 
@@ -31,7 +32,6 @@ export class MainParser extends Component {
     componentWillReceiveProps(nextProps) {
         if (this.props.new_post != nextProps.new_post) {
             const data = nextProps.new_post
-            console.log(data)
             this.setState({ posts: [...this.state.posts, data] })
         }
     }
@@ -47,9 +47,18 @@ export class MainParser extends Component {
         var post_link = this.state.post_link
         if (post_link.indexOf('-') > 0) {
             const post_id = post_link.split('-')[1]
-            this.props.getWall(this.props.token.access_token, "-" + post_id)
+            this.props.getWall(this.props.token.access_token, "-" + post_id, false)
         }
-        else alert('Данная ссылка не ведет на пост')
+        else {
+            if (post_link.indexOf('wall') > 0) {
+                // https://m.vk.com/wall7471312_10153?from=feed5_53562639_2823/15
+                var step = post_link.split('wall')[1]
+                const post_id = step.split('?')[0]
+                this.props.getWall(this.props.token.access_token, post_id, true)
+            }
+            else alert('Данная ссылка не ведет на пост')
+        }
+
     }
 
     renderPosts = () => {
@@ -57,12 +66,24 @@ export class MainParser extends Component {
         return posts.map(post => {
             const owner = post.owner_data.response[0]
             const content = post.post_data.response[0]
+            var link = "https://vk.com/wall" + content.from_id + "_" + content.id
+            var name = ''
+            var photo = ''
+            if (owner.first_name == undefined) {
+                name = owner.name
+                photo = owner.photo_200
+            }
+            else {
+                name = owner.first_name + ' ' + owner.last_name
+                photo = owner.photo_50
+            }
+
             return (
                 <Fragment>
                     <div className="post">
                         <div className="post-header">
-                            <img src={owner.photo_200}></img>
-                            <p className="name"><a href={"https://vk.com/wall" + content.from_id + "_" + content.id}>{owner.name}</a></p>
+                            <img src={photo}></img>
+                            <p className="name"><a href={link}>{name}</a></p>
                         </div>
                         <div className="post-body">
                             <div className="text">
