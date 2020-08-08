@@ -40,7 +40,7 @@
     top: -15px;
     font-size: 10pt;
 }
-.navigation {
+.panels .navigation {
     width: 100%;
     width: -moz-available;          /* WebKit-based browsers will ignore this. */
     width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
@@ -51,22 +51,23 @@
     font-size: 9pt;
 }
 
-.navigation p {
+.panels .navigation p {
     float: left;
     line-height: 30px;
     margin-left: 20px;
 }
 
-.navigation input {
+.panels .navigation input {
     width: 30px;
     padding-left: 10px;
 }
 
 div.navigation :last-child {float: right;padding-right: 13px;}
 
-.navigation input {
+.panels .navigation input {
     float: left;
-    margin: 8px 5px;
+    margin: 0px 5px;
+    box-shadow: none;
 }
 
 .selected {

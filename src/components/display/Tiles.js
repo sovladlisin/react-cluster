@@ -3,6 +3,10 @@ import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
+import { getClusters } from '../../actions/clusters';
+import { setCode } from '../../actions/auth/login';
+
+
 
 
 Array.prototype.unique = function () {
@@ -27,12 +31,19 @@ export class Tiles extends Component {
         data: [], //temporary
         selected_clusters: [],
         opened_cluster: null,
-        current_page: []
+        current_page: [],
+
+
+        code: null
         // ctrl: false
     }
 
     static propTypes = {
-        data: PropTypes.array.isRequired
+        data: PropTypes.array.isRequired,
+        code: PropTypes.string.isRequired,
+        getClusters: PropTypes.func.isRequired,
+        getLoginStatus: PropTypes.func.isRequired,
+        setCode: PropTypes.func.isRequired
     }
 
 
@@ -48,6 +59,7 @@ export class Tiles extends Component {
         for (var i = 1; i < 20; i++) {
             data.push({ id: i, quant: i, thumbnail: "http://shrayner.ru/sites/default/files/foxford25_03_2016.jpg", images: [] })
         }
+        this.props.getClusters()
         this.setState({ data: data, number_of_clusters: data.length })
     }
 
@@ -172,4 +184,14 @@ export class Tiles extends Component {
 
 
 
-export default Tiles
+const mapDispatchToProps = {
+    getClusters,
+    setCode
+};
+
+const mapStateToProps = state => ({
+    data: state.clusters.all,
+    code: state.login.code
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Tiles);

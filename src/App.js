@@ -1,4 +1,5 @@
 import './static/css/all.css';
+import './static/css/wall.css';
 import './static/css/tiles.css';
 import './static/css/panels.css';
 import './static/css/fixer.css';
@@ -15,10 +16,14 @@ import ReactDOM from 'react-dom';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import ClusterPanelBody from './components/panel/ClusterPanelBody';
 import Slide from './components/display/Slide';
-import { HashRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import Workspace from './components/Workspace';
 import Home from './components/Home';
 import ServiceList from './components/ServiceList';
+
+import { Provider } from 'react-redux';
+import store from './store';
+import MainParser from './components/Parser/MainParser';
 
 
 class App extends Component {
@@ -26,13 +31,16 @@ class App extends Component {
 
   render() {
     return (
-      <Router>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/service-list" component={ServiceList} />
-          <Route exact path="/workspace" component={Workspace} />
-        </Switch>
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/service-list" component={ServiceList} />
+            <Route exact path="/workspace" component={Workspace} />
+            <Route exact path="/parser" component={MainParser} />
+          </Switch>
+        </Router>
+      </Provider>
 
     )
   }
