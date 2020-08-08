@@ -49,7 +49,6 @@ export const setToken = () => dispatch => {
     var url = window.location.href;
     url = url.replace('#', '?')
     var url_new = new URL(url);
-    console.log(url_new)
 
     const urlParams = new URLSearchParams(url_new.search);
 
