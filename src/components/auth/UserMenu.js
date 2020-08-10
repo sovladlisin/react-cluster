@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 
 import { setCode, getToken } from '../../actions/auth/login';
 import { getUser } from '../../actions/walls';
+import { Link } from 'react-router-dom';
 
 
 export class UserMenu extends Component {
@@ -40,7 +41,7 @@ export class UserMenu extends Component {
     renderSettings = () => {
         return (
             <Fragment>
-                <button>Безопасность</button>
+                <Link to={`/account`}><button>Личный кабинет</button></Link>
                 <button>Выйти</button>
             </Fragment>
         )
@@ -51,7 +52,7 @@ export class UserMenu extends Component {
             <Fragment>
                 {this.props.user.response ?
                     <div className="user-menu">
-                        <img className="user-photo" src={this.props.user.response[0].photo_50}></img>
+                        <img className="user-photo" src={this.props.user.response[0].photo_200}></img>
                         <p className="user-name">{this.props.user.response[0].first_name} {this.props.user.response[0].last_name}  <i class="fas fa-user-cog" onClick={this.toggleUserSettings}></i></p>
 
                     </div>

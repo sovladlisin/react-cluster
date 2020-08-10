@@ -75,7 +75,7 @@ export const getWall = (token, id, user) => dispatch => {
 
 export const getUser = (token, id) => dispatch => {
     $.ajax({
-        url: 'https://api.vk.com/method/users.get?user_ids=' + id + '&fields=photo_50' + '&access_token=' + token + "&v=5.122",
+        url: 'https://api.vk.com/method/users.get?user_ids=' + id + '&fields=photo_200' + '&access_token=' + token + "&v=5.122",
         type: 'GET',
         dataType: 'jsonp',
     }).done(function (data) {

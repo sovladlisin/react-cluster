@@ -26,6 +26,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import MainParser from './components/Parser/MainParser';
 import UserMenu from './components/auth/UserMenu';
+import UserPage from './components/auth/UserPage';
 
 
 class App extends Component {
@@ -41,6 +42,7 @@ class App extends Component {
             <Route exact path="/service-list" component={ServiceList} />
             <Route exact path="/workspace" component={Workspace} />
             <Route exact path="/parser" component={MainParser} />
+            <Route exact path="/account" component={UserPage} />
           </Switch>
         </Router>
       </Provider>
