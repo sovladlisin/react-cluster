@@ -83,7 +83,6 @@ export class Workspace extends Component {
     render() {
         return (
             <Fragment>
-                <div className="background" style={{ backgroundImage: 'url("' + Background + '")' }}></div>
                 <KeyboardEventHandler
                     handleKeys={['ctrl']}
                     handleEventType={"keydown"}
