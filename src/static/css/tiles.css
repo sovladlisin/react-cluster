@@ -14,31 +14,30 @@
     width: 100px;
     height: 100px;
     background: white;
-    -webkit-box-shadow: 0px 3px 0px 0px rgb(35,45,65, 0.3);
-    -moz-box-shadow: 0px 3px 0px 0px rgb(35,45,65, 0.3);
-    box-shadow: 0px 3px 0px 0px rgb(35,45,65, 0.3);
+    -webkit-box-shadow: 0px 3px 0px 0px #152c4f6e;
+    -moz-box-shadow: 0px 3px 0px 0px #152c4f6e;
+    box-shadow: 0px 3px 0px 0px #152c4f6e;
     transition: 0.3s;
 }
 .tile:hover{
     cursor: pointer;
-    -webkit-box-shadow: 0px 5px 0px 0px rgb(35,45,65, 0.8);
-    -moz-box-shadow: 0px 5px 0px 0px rgb(35,45,65, 0.8);
-    box-shadow: 0px 5px 0px 0px rgb(35,45,65, 0.8);
+    -webkit-box-shadow: 0px 5px 0px 0px #152c4f;
+    -moz-box-shadow: 0px 5px 0px 0px #152c4f;
+    box-shadow: 0px 5px 0px 0px #152c4f;
 }
 
 .counter {
     position: absolute;
-    background: #38455B;
+    background: #152c4f;
     color: white;
     width: 25px;
     height: 25px;
     line-height: 25px;
     text-align: center;
-    border: 5px solid #eaf4f4;
-    bottom: 13px;
-    right: -15px;
-    top: -15px;
+    right: -13px;
+    top: -14px;
     font-size: 10pt;
+    border-radius: 20px;
 }
 .panels .navigation {
     width: 100%;
@@ -46,7 +45,7 @@
     width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
     width: fill-available;
     height: 30px;
-    background: #38455b;
+    background: #152c4f;
     color: white;
     font-size: 9pt;
 }
@@ -59,6 +58,7 @@
 
 .panels .navigation input {
     width: 30px;
+    height: 30px;
     padding-left: 10px;
 }
 
@@ -79,7 +79,7 @@ div.navigation :last-child {float: right;padding-right: 13px;}
     top: 50%;
     transform: translate(-50%,-50%);
     z-index: -1;
-    border: 2px solid #38455b;
+    border: 2px solid white;
 }
 .thumbnail {
     width: 80px;
@@ -98,7 +98,7 @@ div.navigation :last-child {float: right;padding-right: 13px;}
     height: 30px;
     margin-left: 10px;
     padding: 0 10px;
-    background: #38455b;
+    background: #152c4f;
     transition: 0.3s;
 }
 

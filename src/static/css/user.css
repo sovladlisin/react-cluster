@@ -1,0 +1,56 @@
+.user-menu {
+    position: fixed;
+    background: white;
+    border-radius: 30px;
+    height: 36px;
+    top: 20px;
+    padding: 2px;
+    right: 20px;
+}
+
+img.user-photo {
+    float: left;
+    border-radius: 25px;
+    height: 32px;
+    padding: 2px;
+}
+
+p.user-name {
+    float: left;
+    display: none;
+    width: 0;
+    font-size: 9pt;
+    color: #314e8a;
+    line-height: 35px;
+    font-weight: 600;
+    padding: 0 15px;
+    transition: 0.3s;
+    pointer-events: none;
+}
+
+p.user-name i{
+    font-size: 11pt;
+    color: black;
+    margin-left: 10px;
+    cursor: pointer;
+    pointer-events: all;
+}
+
+.user-menu:hover p.user-name{
+    display: inline-block;
+    width: auto;
+}
+
+.user-settings {
+    position: fixed;
+    top: 70px;
+    right: 20px;
+    font-size: 10pt;
+    background: white;
+    border-radius: 25px;
+    padding: 10px 25px;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: right;
+    gap: 10px;
+}

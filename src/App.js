@@ -3,6 +3,7 @@ import './static/css/wall.css';
 import './static/css/tiles.css';
 import './static/css/panels.css';
 import './static/css/fixer.css';
+import './static/css/user.css';
 import './static/css/header.css';
 import './static/css/home.css';
 import Search from './components/header/Search';
@@ -24,6 +25,7 @@ import ServiceList from './components/ServiceList';
 import { Provider } from 'react-redux';
 import store from './store';
 import MainParser from './components/Parser/MainParser';
+import UserMenu from './components/auth/UserMenu';
 
 
 class App extends Component {
@@ -33,6 +35,7 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router>
+          <UserMenu />
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/service-list" component={ServiceList} />

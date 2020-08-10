@@ -1,7 +1,8 @@
-import { GET_WALL } from '../actions/types.js'
+import { GET_WALL, GET_USER } from '../actions/types.js'
 
 const initialState = {
     selected: {},
+    user: {}
 }
 
 export default function (state = initialState, action) {
@@ -11,6 +12,9 @@ export default function (state = initialState, action) {
                 ...state,
                 selected: action.payload
             };
+
+        case GET_USER:
+            return { ...state, user: action.payload }
 
         default:
             return state;

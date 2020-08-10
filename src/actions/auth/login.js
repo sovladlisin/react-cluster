@@ -1,4 +1,4 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL, SET_CODE, GET_TOKEN, CHECK_TOKEN } from "../types"
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL, SET_CODE, GET_TOKEN, CHECK_TOKEN, SET_TOKEN } from "../types"
 
 
 import axios from 'axios';
@@ -60,7 +60,7 @@ export const setToken = () => dispatch => {
 
 
     dispatch({
-        type: GET_TOKEN,
+        type: SET_TOKEN,
         payload: data
     })
 }
@@ -68,6 +68,13 @@ export const setToken = () => dispatch => {
 export const checkToken = () => dispatch => {
     dispatch({
         type: CHECK_TOKEN,
+        payload: null
+    })
+}
+
+export const getToken = () => dispatch => {
+    dispatch({
+        type: GET_TOKEN,
         payload: null
     })
 }

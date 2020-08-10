@@ -1,37 +1,49 @@
 import React, { Component, Fragment } from 'react'
 
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
+import { getClusters } from '../../actions/clusters';
+
 export class LeftPanelBody extends Component {
 
 
     state = {
-        groups: []//temporary
+        groups: [], //temporary
+        selected_group: null
+    }
+
+    static propTypes = {
+        getCluster: PropTypes.func.isRequired,
+        current_clusters: PropTypes.array.isRequired,
     }
 
 
-    componentDidMount(){
-        // const $panel = document.getElementsByClassName("left-panel")[0];
-        // $panel.animate([
-        //     { left: '0' }, 
-        //     ],{
-        //       duration: 400, 
-        //       fill: "forwards", 
-        //       easing: "cubic-bezier(0.42, 0, 0.58, 1)"
-        //     }
-        // );
-
-
+    componentDidMount() {
         // TODO: get actuall groups
         var groups = []
-        for (var i = 0; i< 4; i++){
-            groups.push({id: i, name: "Группа "+i, progress: Math.random()})
+        for (var i = 0; i < 4; i++) {
+            groups.push({ id: i, name: "Группа " + i, progress: Math.random() })
         }
 
-        this.setState({groups: groups})
+        this.setState({ groups: groups })
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.current_clusters != nextProps.current_clusters) {
+            this.props.setGroupData(nextProps.current_clusters)
+        }
     }
 
     refreshGroup = (id) => {
         console.log("TODO: refresh request / id = ", id)
     }
+
+    selectGroup = (id) => {
+        this.props.getClusters(id, id)
+        this.setState({ selected_group: id })
+    }
+
     renderGroups = () => {
         const self = this
         const groups = this.state.groups
@@ -40,16 +52,23 @@ export class LeftPanelBody extends Component {
             const style = {
                 width: (item.progress * 224) + "px"
             }
+            const highlight_style = item.id == this.state.selected_group ? {
+                visibility: "visible"
+            } : null
+
+
+
             return (
                 <Fragment>
                     <div className="group-line">
-                        <p>{item.name}</p>
+                        <p onClick={() => this.selectGroup(item.id)}>{item.name}</p>
+                        <div className="group-highlight" style={highlight_style}><i class="fas fa-eye"></i></div>
                         <div className="progress">
                             <div className="bar" style={style}></div>
                         </div>
                         <button onClick={() => self.refreshGroup(item.id)}><i className="fas fa-sync-alt"></i></button>
                     </div>
-                </Fragment>
+                </Fragment >
             )
         })
     }
@@ -83,9 +102,17 @@ export class LeftPanelBody extends Component {
                     </div>
                 </div>
             </Fragment>
-            
+
         )
     }
 }
 
-export default LeftPanelBody
+const mapDispatchToProps = {
+    getClusters
+};
+
+const mapStateToProps = state => ({
+    current_clusters: state.clusters.selected,
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(LeftPanelBody);

@@ -28,7 +28,6 @@ export class Tiles extends Component {
         elements_on_page: 14,
         page_number: 1,
         number_of_clusters: null,
-        data: [], //temporary
         selected_clusters: [],
         opened_cluster: null,
         current_page: [],
@@ -47,25 +46,23 @@ export class Tiles extends Component {
     }
 
 
-
-
     onChange = (e) => {
         this.setState({ [e.target.name]: e.target.value })
     }
 
     componentDidMount() {
-        //TODO - recieve actual data
-        var data = []
-        for (var i = 1; i < 20; i++) {
-            data.push({ id: i, quant: i, thumbnail: "http://shrayner.ru/sites/default/files/foxford25_03_2016.jpg", images: [] })
-        }
         this.props.getClusters()
-        this.setState({ data: data, number_of_clusters: data.length })
     }
 
-    selectCluster = (cluster_id, quant) => {
+    componentWillReceiveProps(nextProps) {
+        if (this.props.current_group_data != nextProps.current_group_data) {
+            this.setState({ number_of_clusters: nextProps.current_group_data.length })
+        }
+    }
+
+    selectCluster = (cluster) => {
         if (this.props.getCtrl()) {
-            const id = parseInt(cluster_id)
+            const id = parseInt(cluster.cluster_id)
             var selected_clusters = this.state.selected_clusters
             if (selected_clusters.includes(id)) {
                 const i = selected_clusters.indexOf(id);
@@ -79,8 +76,8 @@ export class Tiles extends Component {
             this.setState({ selected_clusters: selected_clusters })
         }
         else {
-            this.props.openCluster(cluster_id, quant)
-            this.setState({ opened_cluster: cluster_id })
+            this.props.openCluster(cluster)
+            this.setState({ opened_cluster: cluster.cluster_id })
         }
     }
 
@@ -89,20 +86,23 @@ export class Tiles extends Component {
 
         const cluster_panel_state = this.props.getClusterPanelState()
         return output.map(item => {
-            const selected = this.state.selected_clusters.includes(item.id) ? true : false
+            const selected = this.state.selected_clusters.includes(item.cluster_id) ? true : false
 
-            const selected_cluster_check = cluster_panel_state ? this.state.opened_cluster : null
-            const opened_cluster = selected_cluster_check == item.id ? true : false
+            const selected_cluster_check = cluster_panel_state ? this.props.opened_cluster : null
+            const opened_cluster = selected_cluster_check == item.cluster_id ? true : false
 
             const highlight_style = selected ? {} : { visibility: "hidden" }
             const tile_style = selected ? { boxShadow: "none" } : {}
+
+            const quant = item.certificates.length
+            const thumbnail = item.certificates[0].image_url
             return (
-                <div key={item.quant} className="tile" style={tile_style} onClick={() => this.selectCluster(item.id, item.quant)} >
+                <div key={item.cluster_id} className="tile" style={tile_style} onClick={() => this.selectCluster(item)} >
                     <div className="counter">
                         {opened_cluster ? <i class="far fa-eye" style={{ fontSize: "11pt" }}></i> :
-                            selected ? <i class="fas fa-check" style={{ fontSize: "8pt" }}></i> : item.quant}
+                            selected ? <i class="fas fa-check" style={{ fontSize: "8pt" }}></i> : quant}
                     </div>
-                    <div className="thumbnail" style={{ backgroundImage: 'url("' + item.thumbnail + '")' }} ></div>
+                    <div className="thumbnail" style={{ backgroundImage: 'url("' + thumbnail + '")' }} ></div>
                     <div className="selected" style={highlight_style}>
                     </div>
                 </ div>
@@ -111,7 +111,7 @@ export class Tiles extends Component {
     }
 
     selectPage = () => {
-        const result = this.getCurrentPage().map(item => { return item.id })
+        const result = this.getCurrentPage().map(item => { return item.cluster_id })
 
         var selected_clusters = this.state.selected_clusters
 
@@ -134,19 +134,22 @@ export class Tiles extends Component {
     }
 
     getCurrentPage = () => {
-        const data = this.state.data
+        if (this.props.current_group_data.length) {
+            const data = this.props.current_group_data
 
-        const page_number = parseInt(this.state.page_number)
-        const elements_on_page = parseInt(this.state.elements_on_page)
-        const start = (page_number - 1) * elements_on_page
-        const end = start + elements_on_page
+            const page_number = parseInt(this.state.page_number)
+            const elements_on_page = parseInt(this.state.elements_on_page)
+            const start = (page_number - 1) * elements_on_page
+            const end = start + elements_on_page
 
-        return data.slice(start, end)
+            return data.slice(start, end)
+        }
+        return []
     }
 
     selectAll = () => {
-        if (this.state.selected_clusters.length != this.state.data.length) {
-            this.setState({ selected_clusters: this.state.data.map(item => { return (item.id) }) })
+        if (this.state.selected_clusters.length != this.props.current_group_data.length) {
+            this.setState({ selected_clusters: this.props.current_group_data.map(item => { return (item.cluster_id) }) })
         }
         else {
             this.setState({ selected_clusters: [] })
@@ -154,31 +157,33 @@ export class Tiles extends Component {
     }
 
     render() {
+        if (this.props.current_group_data.length) {
+            const check_selected_all = this.props.current_group_data.length == this.state.selected_clusters.length ? true : false
 
-        const check_selected_all = this.state.data.length == this.state.selected_clusters.length ? true : false
+            const page = this.getCurrentPage().map(item => { return item.cluster_id })
+            const new_data = this.state.selected_clusters.concat(page).unique();
+            const check_selected_page = new_data.length == this.state.selected_clusters.length ? true : false
 
-        const page = this.getCurrentPage().map(item => { return item.id })
-        const new_data = this.state.selected_clusters.concat(page).unique();
-        const check_selected_page = new_data.length == this.state.selected_clusters.length ? true : false
-
-        return (
-            <Fragment>
-                <div className="tiles">
-                    {this.renderData()}
-                </div>
-                <div className="panels">
-                    <div className="navigation">
-                        <p>Страница: </p>
-                        <input type="number" min="1" step="1" name="page_number" value={this.state.page_number} onChange={this.onChange}></input>
-                        <p>Число элементов на странице: </p>
-                        <input type="number" min="1" max={this.state.number_of_clusters} step="1" name="elements_on_page" value={this.state.elements_on_page} onChange={this.onChange}></input>
-                        <p>Всего элементов: {this.state.number_of_clusters}</p>
+            return (
+                <Fragment>
+                    <div className="tiles">
+                        {this.renderData()}
                     </div>
-                    <button onClick={this.selectPage}>{check_selected_page ? <span>Снять выделение страницы</span> : <span>Выбрать страницу</span>}</button>
-                    <button onClick={this.selectAll}>{check_selected_all ? <span>Снять выделение всех объектов</span> : <span>Выбрать все</span>}</button>
-                </div>
-            </Fragment>
-        )
+                    <div className="panels">
+                        <div className="navigation">
+                            <p>Страница: </p>
+                            <input type="number" min="1" step="1" name="page_number" value={this.state.page_number} onChange={this.onChange}></input>
+                            <p>Число элементов на странице: </p>
+                            <input type="number" min="1" max={this.state.number_of_clusters} step="1" name="elements_on_page" value={this.state.elements_on_page} onChange={this.onChange}></input>
+                            <p>Всего элементов: {this.state.number_of_clusters}</p>
+                        </div>
+                        <button onClick={this.selectPage}>{check_selected_page ? <span>Снять выделение страницы</span> : <span>Выбрать страницу</span>}</button>
+                        <button onClick={this.selectAll}>{check_selected_all ? <span>Снять выделение всех объектов</span> : <span>Выбрать все</span>}</button>
+                    </div>
+                </Fragment>
+            )
+        }
+        return null
     }
 }
 

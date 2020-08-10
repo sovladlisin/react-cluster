@@ -2,6 +2,7 @@ import { GET_CLUSTERS } from '../actions/types.js'
 
 const initialState = {
     all: [],
+    selected: []
 }
 
 export default function (state = initialState, action) {
@@ -9,7 +10,7 @@ export default function (state = initialState, action) {
         case GET_CLUSTERS:
             return {
                 ...state,
-                all: action.payload
+                selected: action.payload
             };
 
         default:

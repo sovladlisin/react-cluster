@@ -9,7 +9,7 @@
 .header button {
     width: 50px;
     height: 50px;
-    background: #38455b;
+    background: #152c4f;
     color: white;
     font-size: 16pt;
     transition: 0.3s;
@@ -47,7 +47,7 @@
 .filter-menu {
     margin: 0 auto;
     width: 880px;
-    background: #38455bf2;
+    background: #152c4ff8;
     padding: 10px;
     color: white;
     position: absolute;
@@ -76,7 +76,7 @@
 }
 
 .highlight {
-    border-bottom: 2px solid #38455b;
+    border-bottom: 2px solid white;
     width: 50px;
     height: 55px;
     opacity: 0;
@@ -96,7 +96,7 @@
 .slide {
     width: 100%;
     height: 100%;
-    background: #38455bde;
+    background: #152c4ff5;
     z-index: 100;
     position: absolute;
     top: 0;

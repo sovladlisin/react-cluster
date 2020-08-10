@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, LOGIN_FAIL, SET_CODE, GET_TOKEN, CHECK_TOKEN } from "../../actions/types"
+import { LOGIN_SUCCESS, LOGIN_FAIL, SET_CODE, GET_TOKEN, CHECK_TOKEN, SET_TOKEN } from "../../actions/types"
 import { handleLogin } from '../../actions/auth/login'
 
 
@@ -20,6 +20,9 @@ export default function user(state = initialState, action) {
         case SET_CODE:
             return { ...state, code: action.payload }
         case GET_TOKEN:
+            return state
+
+        case SET_TOKEN:
             return { ...state, token: action.payload }
 
         case CHECK_TOKEN:

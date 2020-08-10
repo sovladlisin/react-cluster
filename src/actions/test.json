@@ -1,29 +1,4 @@
-import axios from 'axios';
-import { GET_CLUSTERS } from './types';
-
-export const getClusters = (user_id, group_id) => dispatch => {
-
-    // axios.get(`/api/${model_name}/${id}/`).then(res => {
-    //     dispatch({
-    //         type: GET_PIN_WINDOW,
-    //         payload: res.data
-    //     });
-    // }).catch(err => console.log(err));
-    if (user_id == 1) {
-        dispatch({
-            type: GET_CLUSTERS,
-            payload: test_data
-        })
-    }
-    else {
-        dispatch({
-            type: GET_CLUSTERS,
-            payload: []
-        })
-    }
-}
-
-const test_data = [
+[
     {
         "cluster_id": 4,
         "cluster_name": "\u043a\u043b\u0430\u0441\u0442\u0435\u0440 #4",

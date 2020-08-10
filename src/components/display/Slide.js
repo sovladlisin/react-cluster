@@ -6,10 +6,9 @@ export class Slide extends Component {
         url: ""
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.state.url != nextProps.url) {
-            this.setState({ url: nextProps.url })
-        }
+
+    componentDidMount() {
+        this.setState({ url: this.props.item.image_url })
     }
 
 
@@ -18,7 +17,7 @@ export class Slide extends Component {
             <Fragment>
                 <div className="slide" onClick={() => this.props.closeImage()}></div>
                 <div className="container">
-                    <img className="slide-image" src={this.props.url}></img>
+                    <img className="slide-image" src={this.state.url}></img>
                 </div>
             </Fragment>
         )

@@ -18,7 +18,6 @@ export class MainParser extends Component {
         getWall: PropTypes.func.isRequired,
         checkToken: PropTypes.func.isRequired,
         new_post: PropTypes.object.isRequired
-
     }
 
     state = {

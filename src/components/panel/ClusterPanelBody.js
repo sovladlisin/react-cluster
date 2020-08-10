@@ -5,37 +5,17 @@ export class ClusterPanelBody extends Component {
 
     state = {
         selected_items: [],
-        items: []
+        items: [],
+        cluster: {}
     }
 
     componentDidMount() {
-        // TODO - get actual items
-
-        // Temporary part:
-        const quant = this.props.quant
-        var items = []
-        for (var i = 0; i < quant; i++) {
-            items.push({ id: i, url: "http://shrayner.ru/sites/default/files/foxford25_03_2016.jpg", name: "item_name" })
-        }
-        this.setState({ items: items })
+        this.setState({ cluster: this.props.cluster, items: this.props.cluster.certificates })
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.cluster_id != nextProps.cluster_id) {
-
-            // Temporary part:
-            const quant = nextProps.quant
-            var items = []
-            for (var i = 0; i < quant; i++) {
-                items.push({ id: i, url: "http://shrayner.ru/sites/default/files/foxford25_03_2016.jpg", name: "item_name" })
-            }
-            this.setState({ items: items })
-        }
-    }
-
-    selectItem = (item_id) => {
+    selectItem = (item) => {
         if (this.props.getCtrl()) {
-            const id = parseInt(item_id)
+            const id = parseInt(item.id)
             var selected_items = this.state.selected_items
             if (selected_items.includes(id)) {
                 const i = selected_items.indexOf(id);
@@ -49,8 +29,7 @@ export class ClusterPanelBody extends Component {
             this.setState({ selected_items: selected_items })
         }
         else {
-            const url = this.state.items.filter(item => item.id == item_id)[0].url
-            this.props.openImage(url)
+            this.props.openImage(item)
         }
     }
 
@@ -68,8 +47,8 @@ export class ClusterPanelBody extends Component {
             const selected_style = this.state.selected_items.includes(item.id) ? {} : { visibility: "hidden" }
             return (
                 <Fragment>
-                    <div className="item" onClick={() => this.selectItem(item.id)}>
-                        <div className="thumbnail" style={{ backgroundImage: 'url("' + item.url + '")' }} ></div>
+                    <div className="item" onClick={() => this.selectItem(item)}>
+                        <div className="thumbnail" style={{ backgroundImage: 'url("' + item.image_url + '")' }} ></div>
                         <div className="item-highlight" style={selected_style}>
                             <p><i class="fas fa-check"></i></p>
                         </div>

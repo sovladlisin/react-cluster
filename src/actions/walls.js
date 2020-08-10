@@ -1,4 +1,4 @@
-import { GET_WALL } from "./types"
+import { GET_WALL, GET_USER } from "./types"
 import axios from 'axios';
 import { $CombinedState } from "redux";
 import $, { data } from "jquery"
@@ -71,4 +71,17 @@ export const getWall = (token, id, user) => dispatch => {
     //         payload: res.data
     //     });
     // }).catch(err => console.log(err));
+}
+
+export const getUser = (token, id) => dispatch => {
+    $.ajax({
+        url: 'https://api.vk.com/method/users.get?user_ids=' + id + '&fields=photo_50' + '&access_token=' + token + "&v=5.122",
+        type: 'GET',
+        dataType: 'jsonp',
+    }).done(function (data) {
+        dispatch({
+            type: GET_USER,
+            payload: data
+        });
+    })
 }

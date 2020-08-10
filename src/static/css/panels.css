@@ -3,7 +3,7 @@
     height: 100%;
     top: 0;
     position: fixed;
-    background: #38455bf0;
+    background: #152c4ff5;
     transition: 0.3s;
 }
 
@@ -19,7 +19,7 @@
 #toggle-left-panel{
     width: 50px;
     height: 50px;
-    background: #38455b;
+    background: #152c4f;
     color: white;
     font-size: 16pt;
     transition: 0.3s;
@@ -262,4 +262,12 @@ button.select-all-items {
 .item .thumbnail {
     width: 85px;
     height: 85px;
+}
+
+.group-highlight {
+    position: absolute;
+    right: 11px;
+    line-height: 22px;
+    color: #ff4c4c;
+    visibility: hidden;
 }
