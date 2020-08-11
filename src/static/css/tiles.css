@@ -6,7 +6,8 @@
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    gap: 20px;
+    row-gap: 20px;
+    column-gap: 20px;
 }
 
 .tile {
@@ -104,7 +105,12 @@ div.navigation :last-child {float: right;padding-right: 13px;}
 
 .panels {
     width: 900px;
-    margin: 25px auto;
     display: grid;
     grid-template-columns: 1fr auto auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 90px;
+    margin-left: auto;
+    margin-right: auto;
 }

@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import onClickOutside from "react-onclickoutside";
 
 export class ClusterPanelBody extends Component {
 
@@ -11,6 +12,12 @@ export class ClusterPanelBody extends Component {
 
     componentDidMount() {
         this.setState({ cluster: this.props.cluster, items: this.props.cluster.certificates })
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.cluster != nextProps.cluster) {
+            this.setState({ cluster: nextProps.cluster, items: nextProps.cluster.certificates })
+        }
     }
 
     selectItem = (item) => {
@@ -40,6 +47,10 @@ export class ClusterPanelBody extends Component {
         else this.setState({ selected_items: this.state.items.map(item => { return item.id }) })
     }
 
+    handleClickOutside = () => {
+        this.props.closeCluster()
+    };
+
 
     renderItems = () => {
         const data = this.state.items
@@ -61,6 +72,7 @@ export class ClusterPanelBody extends Component {
 
     render() {
 
+
         const check_selected = this.state.selected_items.length == this.state.items.length ? true : false
 
         return (
@@ -68,7 +80,7 @@ export class ClusterPanelBody extends Component {
                 <div className="right-panel">
                     <div className="panel-body">
                         <button id="close" onClick={this.props.closeCluster}><i className="fas fa-times"></i></button>
-                        <p className="title">Набор №{this.props.cluster_id}</p>
+                        <p className="title">Набор №{this.state.cluster.cluster_id}</p>
                         <button className="select-all-items" onClick={this.selectAllItems}>{
                             check_selected ? <p>Снять выделение</p> : <p>Выбрать все</p>}</button>
                         <div className="clusters">
@@ -84,4 +96,4 @@ export class ClusterPanelBody extends Component {
     }
 }
 
-export default ClusterPanelBody
+export default onClickOutside(ClusterPanelBody);
