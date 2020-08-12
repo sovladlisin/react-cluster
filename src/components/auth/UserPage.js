@@ -62,7 +62,6 @@ export class UserPage extends Component {
                             <button><i class="fas fa-upload"></i>  Текущие запросы</button>
                             <button><i class="fas fa-user-tie"></i>  Сменить аккаунт</button>
                             <button><i class="fas fa-question-circle"></i>  Что-нибудь еще..</button>
-
                         </div>
                     </div>
                     <div className="user-content">

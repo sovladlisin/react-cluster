@@ -75,6 +75,10 @@ export class Workspace extends Component {
         this.setState({ current_slide_item: {}, slide_state: false })
     }
 
+    closePanels = () => {
+        this.setState({ left_panel_state: false, cluster_panel_state: false })
+    }
+
 
     setGroupData = (data) => {
         this.setState({ current_group_data: data })
@@ -118,6 +122,10 @@ export class Workspace extends Component {
                         closeCluster={this.closeCluster}
                         quant={this.state.quant}
                         cluster={this.state.current_cluster} /> : null}
+
+                <div className="closePanels" onClick={this.closePanels}>
+
+                </div>
             </Fragment>
         )
     }

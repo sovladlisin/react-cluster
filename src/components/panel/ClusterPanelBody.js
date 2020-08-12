@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react'
-import onClickOutside from "react-onclickoutside";
 
 export class ClusterPanelBody extends Component {
 
@@ -47,10 +46,6 @@ export class ClusterPanelBody extends Component {
         else this.setState({ selected_items: this.state.items.map(item => { return item.id }) })
     }
 
-    handleClickOutside = () => {
-        this.props.closeCluster()
-    };
-
 
     renderItems = () => {
         const data = this.state.items
@@ -96,4 +91,4 @@ export class ClusterPanelBody extends Component {
     }
 }
 
-export default onClickOutside(ClusterPanelBody);
+export default ClusterPanelBody;

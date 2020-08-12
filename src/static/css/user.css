@@ -6,6 +6,7 @@
     top: 20px;
     padding: 2px;
     right: 20px;
+    z-index: 10;
 }
 
 img.user-photo {
@@ -53,6 +54,7 @@ p.user-name i{
     grid-template-columns: 1fr;
     justify-items: right;
     gap: 10px;
+    z-index: 10;
 }
 
 .user-navigation {

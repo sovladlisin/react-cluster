@@ -4,6 +4,7 @@
     display: grid;
     grid-template-columns: 1fr auto auto;
     gap: 10px;
+    z-index: 5;
 }
 
 .header button {
@@ -13,6 +14,7 @@
     color: white;
     font-size: 16pt;
     transition: 0.3s;
+    z-index: 5;
 }
 
 .header button:hover{
@@ -34,6 +36,7 @@
 
 .search {
     display: inline-block;
+    z-index: 5;
 }
 
 .search p {
@@ -51,7 +54,7 @@
     padding: 10px;
     color: white;
     position: absolute;
-    z-index: 100;
+    z-index:7;
     left: 0;
     right: 0;
 }
@@ -104,18 +107,49 @@
 }
 
 .container {
-    position: absolute;
-    width: auto;
-    height: 70%;
-    left: 50%;
-    top: 50%;
+    width: 100%;
+    height: 100%;
     z-index: 101;
-    background: white;
-    transform: translate(-50%,-50%);
 }
 
 .slide-image {
-    width: auto;
-    height: 100%;
     object-fit: scale-down;
+    max-height: 600px;
+    max-width: 100%;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.data {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 90%;
+    max-height: 600px;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 100;
+    gap: 20px;
+}
+
+.text-data {
+    height: 100%;
+    border: 1px solid white;
+    object-fit: scale-down;
+    max-height: 600px;
+    max-width: 100%;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.text-data p {
+    color: white;
+    padding-left: 15px;
+    padding: 5px 15px;
+    line-height: 20px;
 }

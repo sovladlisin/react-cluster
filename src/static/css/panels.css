@@ -5,6 +5,7 @@
     position: fixed;
     background: #152c4ff5;
     transition: 0.3s;
+    z-index: 50;
 }
 
 .left-panel{
@@ -26,6 +27,7 @@
     bottom: 25px;
     position: fixed;
     left: 25px;
+    z-index: 5;
 }
 
 #toggle-left-panel p{
