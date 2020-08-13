@@ -1,4 +1,5 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL, SET_CODE, GET_TOKEN, CHECK_TOKEN, SET_TOKEN } from "../types"
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL, SET_CODE, GET_TOKEN, CHECK_TOKEN, SET_TOKEN, GET_ACCOUNT_INFO } from "../types"
+import $, { data } from "jquery"
 
 
 import axios from 'axios';
@@ -76,6 +77,20 @@ export const getToken = () => dispatch => {
     dispatch({
         type: GET_TOKEN,
         payload: null
+    })
+}
+
+export const getAccountInfo = (token) => dispatch => {
+
+    $.ajax({
+        url: 'https://api.vk.com/method/users.get?user_ids=' + token.user_id + '&fields=photo_200' + '&access_token=' + token.access_token + "&v=5.122",
+        type: 'GET',
+        dataType: 'jsonp',
+    }).done(function (data) {
+        dispatch({
+            type: GET_ACCOUNT_INFO,
+            payload: data.response[0]
+        })
     })
 }
 

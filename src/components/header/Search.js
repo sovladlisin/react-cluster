@@ -1,17 +1,19 @@
 import React, { Component, Fragment } from 'react'
 import Alerts from '../alerts/Alerts'
+import PropTypes from 'prop-types';
+
 
 export class Search extends Component {
 
     state = {
-        filterMenu: false,
         selected_filter: null,
         alert: false,
         alert_message: ""
     }
 
-    showFilterMenu = () => {
-        this.setState({filterMenu: !this.state.filterMenu})
+    static propTypes = {
+        filter_menu_state: PropTypes.bool.isRequired,
+        toggleFilterMenu: PropTypes.func.isRequired
     }
 
     downloadUserList = () => {
@@ -19,17 +21,17 @@ export class Search extends Component {
     }
 
     onFilterChange = (e) => {
-        this.setState({selected_filter : e.target.id})
+        this.setState({ selected_filter: e.target.id })
     }
 
     toggleAlerts = (message) => {
-        if (message.length == 0){
-            this.setState({alert: !this.state.alert, alert_message: message})
+        if (message.length == 0) {
+            this.setState({ alert: !this.state.alert, alert_message: message })
         }
     }
 
     renderFilterMenu = () => {
-        if (this.state.filterMenu){
+        if (this.props.filter_menu_state) {
 
             const selected = {
                 background: "white",
@@ -62,11 +64,11 @@ export class Search extends Component {
                         <input></input>
                         <p><i className="fas fa-search"></i></p>
                     </div>
-                    <button title="Скачать пользователей" id="download-users"onClick={this.downloadUserList}>
+                    <button title="Скачать пользователей" id="download-users" onClick={this.downloadUserList}>
                         <p><i className="fas fa-file-download"></i></p>
                         <div className="highlight"></div>
                     </button>
-                    <button title="Список фильтров" id="filters" onClick={this.showFilterMenu}>
+                    <button title="Список фильтров" id="filters" onClick={this.props.toggleFilterMenu}>
                         <p><i className="fas fa-clipboard-list"></i></p>
                         <div className="highlight"></div>
                     </button>

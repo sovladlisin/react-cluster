@@ -145,6 +145,7 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
+    overflow: auto;
 }
 
 .text-data p {
@@ -152,4 +153,36 @@
     padding-left: 15px;
     padding: 5px 15px;
     line-height: 20px;
+}
+
+.slide-user-info {
+    position: fixed;
+    top: -45px;
+    left: 0;
+    z-index: 100;
+    color: white;
+    font-size: 9pt;
+    line-height: 15px;
+}
+.slide-user-info > p{
+    float: left;
+    line-height: 33px;
+    margin-left: 10px;
+}
+.slide-user-info a#post-link {
+    float: left;
+    color: #1d3355;
+    line-height: 34px;
+    margin-left: 35px;
+    background: white;
+    padding: 0 10px;
+}
+
+button#close-slide {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    color: white;
+    font-size: 18pt;
+    z-index: 1000;
 }

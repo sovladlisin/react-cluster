@@ -11,4 +11,7 @@ export const SET_TOKEN = 'SET_TOKEN'
 
 export const GET_WALL = 'GET_WALL'
 export const GET_USER = 'GET_USER'
+export const GET_ORIGIN_USER = 'GET_ORIGIN_USER'
+
+export const GET_ACCOUNT_INFO = 'GET_ACCOUNT_INFO'
 

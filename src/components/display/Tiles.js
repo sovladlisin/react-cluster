@@ -82,70 +82,72 @@ export class Tiles extends Component {
     }
 
     renderData = () => {
-        const output = this.getCurrentPage()
-
-        const cluster_panel_state = this.props.getClusterPanelState()
-        return output.map(item => {
-            const selected = this.state.selected_clusters.includes(item.cluster_id) ? true : false
-
-            const selected_cluster_check = cluster_panel_state ? this.props.opened_cluster : null
-            const opened_cluster = selected_cluster_check == item.cluster_id ? true : false
-
-            const highlight_style = selected ? {} : { visibility: "hidden" }
-            const tile_style = selected ? { boxShadow: "none" } : {}
-
-            const quant = item.certificates.length
-            const thumbnail = item.certificates[0].image_url
-            return (
-                <div key={item.cluster_id} className="tile" style={tile_style} onClick={() => this.selectCluster(item)} >
-                    <div className="counter">
-                        {opened_cluster ? <i class="far fa-eye" style={{ fontSize: "11pt" }}></i> :
-                            selected ? <i class="fas fa-check" style={{ fontSize: "8pt" }}></i> : quant}
-                    </div>
-                    <div className="thumbnail" style={{ backgroundImage: 'url("' + thumbnail + '")' }} ></div>
-                    <div className="selected" style={highlight_style}>
-                    </div>
-                </ div>
-            )
-        })
-    }
-
-    selectPage = () => {
-        const result = this.getCurrentPage().map(item => { return item.cluster_id })
-
-        var selected_clusters = this.state.selected_clusters
-
-        const new_data = selected_clusters.concat(result).unique();
-
-        if (new_data.length == selected_clusters.length) {
-            result.forEach(element => {
-                if (selected_clusters.includes(element)) {
-                    const i = selected_clusters.indexOf(element);
-                    if (i > -1) {
-                        selected_clusters.splice(i, 1);
-                    }
-                }
-            });
-            this.setState({ selected_clusters: selected_clusters, current_page: result })
-        }
-        else {
-            this.setState({ selected_clusters: new_data, current_page: result })
-        }
-    }
-
-    getCurrentPage = () => {
         if (this.props.current_group_data.length) {
-            const data = this.props.current_group_data
+            const output = this.props.current_group_data
+            return output.map(item => {
+                const selected = this.state.selected_clusters.includes(item.cluster_id) ? true : false
 
-            const page_number = parseInt(this.state.page_number)
-            const elements_on_page = parseInt(this.state.elements_on_page)
-            const start = (page_number - 1) * elements_on_page
-            const end = start + elements_on_page
+                const selected_cluster_check = this.props.cluster_panel_state ? this.props.opened_cluster : null
+                const opened_cluster = selected_cluster_check == item.cluster_id ? true : false
 
-            return data.slice(start, end)
+                const highlight_style = selected ? {} : { visibility: "hidden" }
+                const tile_style = selected ? { boxShadow: "none" } : {}
+
+                const quant = item.certificates.length
+                const thumbnail = item.certificates[0].image_url
+                return (
+                    <div key={item.cluster_id} className="tile" style={tile_style} onClick={() => this.selectCluster(item)} >
+                        <div className="counter">
+                            {opened_cluster ? <i class="far fa-eye" style={{ fontSize: "11pt" }}></i> :
+                                selected ? <i class="fas fa-check" style={{ fontSize: "8pt" }}></i> : quant}
+                        </div>
+                        <div className="meta-data">Набор #{item.cluster_id}</div>
+                        <div className="thumbnail" style={{ backgroundImage: 'url("' + thumbnail + '")' }} ></div>
+                        <div className="selected" style={highlight_style}>
+                        </div>
+                    </ div>
+                )
+            })
         }
-        return []
+        return null
     }
+
+    // selectPage = () => {
+    //     const result = this.getCurrentPage().map(item => { return item.cluster_id })
+
+    //     var selected_clusters = this.state.selected_clusters
+
+    //     const new_data = selected_clusters.concat(result).unique();
+
+    //     if (new_data.length == selected_clusters.length) {
+    //         result.forEach(element => {
+    //             if (selected_clusters.includes(element)) {
+    //                 const i = selected_clusters.indexOf(element);
+    //                 if (i > -1) {
+    //                     selected_clusters.splice(i, 1);
+    //                 }
+    //             }
+    //         });
+    //         this.setState({ selected_clusters: selected_clusters, current_page: result })
+    //     }
+    //     else {
+    //         this.setState({ selected_clusters: new_data, current_page: result })
+    //     }
+    // }
+
+    // getCurrentPage = () => {
+    //     if (this.props.current_group_data.length) {
+    //         const data = this.props.current_group_data
+
+    //         const page_number = parseInt(this.state.page_number)
+    //         const elements_on_page = parseInt(this.state.elements_on_page)
+    //         const start = (page_number - 1) * elements_on_page
+    //         const end = start + elements_on_page
+
+    //         return data.slice(start, end)
+    //     }
+    //     return []
+    // }
 
     selectAll = () => {
         if (this.state.selected_clusters.length != this.props.current_group_data.length) {
@@ -159,26 +161,20 @@ export class Tiles extends Component {
     render() {
         if (this.props.current_group_data.length) {
             const check_selected_all = this.props.current_group_data.length == this.state.selected_clusters.length ? true : false
-
-            const page = this.getCurrentPage().map(item => { return item.cluster_id })
-            const new_data = this.state.selected_clusters.concat(page).unique();
-            const check_selected_page = new_data.length == this.state.selected_clusters.length ? true : false
-
             return (
                 <Fragment>
-                    <div className="tiles">
-                        {this.renderData()}
-                    </div>
-                    <div className="panels">
-                        <div className="navigation">
-                            <p>Страница: </p>
-                            <input type="number" min="1" step="1" name="page_number" value={this.state.page_number} onChange={this.onChange}></input>
-                            <p>Число элементов на странице: </p>
-                            <input type="number" min="1" max={this.state.number_of_clusters} step="1" name="elements_on_page" value={this.state.elements_on_page} onChange={this.onChange}></input>
-                            <p>Всего элементов: {this.state.number_of_clusters}</p>
+                    <div className="tiles-workspace">
+                        <div className="tiles">
+                            {this.renderData()}
                         </div>
-                        <button onClick={this.selectPage}>{check_selected_page ? <span>Снять выделение страницы</span> : <span>Выбрать страницу</span>}</button>
-                        <button onClick={this.selectAll}>{check_selected_all ? <span>Снять выделение всех объектов</span> : <span>Выбрать все</span>}</button>
+                        <button
+                            id="select-all-clusters"
+                            onClick={this.selectAll}>
+                            {check_selected_all ?
+                                <span><i className="far fa-check-circle"></i></span> :
+                                <span><i className="far fa-circle"></i></span>
+                            } Выделить все
+                            </button>
                     </div>
                 </Fragment>
             )

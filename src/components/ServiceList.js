@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { setCode, setToken } from '../actions/auth/login';
+import { setCode, setToken, getAccountInfo } from '../actions/auth/login';
 
 
 
@@ -20,6 +20,13 @@ export class ServiceList extends Component {
     static propTypes = {
         setCode: PropTypes.func.isRequired,
         setToken: PropTypes.func.isRequired,
+        getAccountInfo: PropTypes.func.isRequired,
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.token != prevProps.token) {
+            this.props.getAccountInfo(this.props.token)
+        }
     }
 
 
@@ -43,12 +50,14 @@ export class ServiceList extends Component {
 
 const mapDispatchToProps = {
     setCode,
-    setToken
+    setToken,
+    getAccountInfo
 };
 
 const mapStateToProps = state => ({
     code: state.login.code,
-    token: state.login.token
+    token: state.login.token,
+    account_info: state.login.account_info
 
 })
 

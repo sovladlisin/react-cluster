@@ -11,12 +11,15 @@ import Background from '../static/background.jpg';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { checkToken } from '../actions/auth/login'
+import { getClusters } from '../actions/clusters';
+
 
 
 export class Workspace extends Component {
     state = {
         left_panel_state: false,
         cluster_panel_state: false,
+        filter_menu_state: false,
         ctrl: false,
         current_cluster: [],
         current_slide_item: {},
@@ -27,10 +30,18 @@ export class Workspace extends Component {
 
     static propTypes = {
         checkToken: PropTypes.func.isRequired,
+        getClusters: PropTypes.func.isRequired,
+        display_data: PropTypes.array.isRequired
+
     }
 
     toggleLeftPanel = () => {
         this.setState({ left_panel_state: !this.state.left_panel_state })
+    }
+
+    toggleFilterMenu = () => {
+        console.log('1')
+        this.setState({ filter_menu_state: !this.state.filter_menu_state })
     }
 
     ctrlDown = () => {
@@ -65,6 +76,7 @@ export class Workspace extends Component {
         const $loading_screen = document.getElementById("loading");
         $loading_screen.style.visibility = "hidden"
         this.props.checkToken()
+        this.props.getClusters()
     }
 
     openImage = (item) => {
@@ -76,7 +88,7 @@ export class Workspace extends Component {
     }
 
     closePanels = () => {
-        this.setState({ left_panel_state: false, cluster_panel_state: false })
+        this.setState({ left_panel_state: false, cluster_panel_state: false, filter_menu_state: false })
     }
 
 
@@ -97,46 +109,51 @@ export class Workspace extends Component {
                     handleEventType={"keyup"}
                     onKeyEvent={(key, e) => this.ctrlUp()}
                 />
-                {!this.state.left_panel_state ?
+                {/* {!this.state.left_panel_state ?
                     <button title="Панель управления" id="toggle-left-panel" onClick={this.toggleLeftPanel}>
                         <p><i className="fas fa-chart-pie"></i></p>
                         <div className="highlight"></div>
                     </button>
-                    : null}
-                <Search />
-                {this.state.slide_state ? <Slide closeImage={this.closeImage} item={this.state.current_slide_item} /> : null}
+                    : null} */}
+                <Search toggleFilterMenu={this.toggleFilterMenu} filter_menu_state={this.state.filter_menu_state} />
+                {this.state.slide_state ?
+                    <Slide
+                        closeImage={this.closeImage}
+                        item={this.state.current_slide_item}
+                    /> : null}
                 <Tiles
-                    current_group_data={this.state.current_group_data}
+                    current_group_data={this.props.display_data}
                     getCtrl={this.getCtrl}
-                    opened_cluster={this.state.current_cluster_id}
+                    opened_cluster={this.state.current_cluster.cluster_id}
                     openCluster={this.openCluster}
-                    getClusterPanelState={this.getClusterPanelState} />
-                {this.state.left_panel_state ?
+                    cluster_panel_state={this.state.cluster_panel_state} />
+                {/* {this.state.left_panel_state ?
                     <LeftPanelBody
                         setGroupData={this.setGroupData}
-                        toggleLeftPanel={this.toggleLeftPanel} /> : null}
+                        toggleLeftPanel={this.toggleLeftPanel} /> : null} */}
                 {this.state.cluster_panel_state ?
                     <ClusterPanelBody
                         openImage={this.openImage}
                         getCtrl={this.getCtrl}
                         closeCluster={this.closeCluster}
                         quant={this.state.quant}
-                        cluster={this.state.current_cluster} /> : null}
+                        cluster={this.state.current_cluster}
+                        slide_state={this.state.slide_state} /> : null}
 
-                <div className="closePanels" onClick={this.closePanels}>
-
-                </div>
+                <div className="closePanels" onClick={this.closePanels}></div>
             </Fragment>
         )
     }
 }
 
 const mapDispatchToProps = {
-    checkToken
+    checkToken,
+    getClusters
 };
 
 const mapStateToProps = state => ({
-    token: state.login.token
+    token: state.login.token,
+    display_data: state.clusters.selected,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Workspace);

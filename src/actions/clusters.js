@@ -9,18 +9,18 @@ export const getClusters = (user_id, group_id) => dispatch => {
     //         payload: res.data
     //     });
     // }).catch(err => console.log(err));
-    if (user_id == 1) {
-        dispatch({
-            type: GET_CLUSTERS,
-            payload: test_data
-        })
-    }
-    else {
-        dispatch({
-            type: GET_CLUSTERS,
-            payload: []
-        })
-    }
+    // if (user_id == 1) {
+    dispatch({
+        type: GET_CLUSTERS,
+        payload: test_data
+    })
+
+    // else {
+    //     dispatch({
+    //         type: GET_CLUSTERS,
+    //         payload: []
+    //     })
+    // }
 }
 
 const test_data = [

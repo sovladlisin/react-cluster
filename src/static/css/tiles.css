@@ -1,3 +1,9 @@
+.tiles-workspace {
+    width: 900px;
+    margin: 0 auto;
+    position: relative;
+}
+
 .tiles {
     margin: 5px auto;
     width: 900px;
@@ -82,7 +88,7 @@ div.navigation :last-child {float: right;padding-right: 13px;}
     top: 50%;
     transform: translate(-50%,-50%);
     z-index: -1;
-    border: 2px solid white;
+    border: 2px solid #152c4f;;
 }
 .thumbnail {
     width: 80px;
@@ -125,4 +131,30 @@ div.navigation :last-child {float: right;padding-right: 13px;}
     position: absolute;
     top: 0;
     z-index: 1;
+}
+
+.tile .meta-data{
+    position: absolute;
+    background: #152c4f;
+    color: white;
+    font-size: 9pt;
+    width: 100px;
+    height: 20px;
+    opacity: 0.9;
+    bottom: -7px;
+    text-align: center;
+    line-height: 20px;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+button#select-all-clusters {
+    z-index: 5;
+    position: absolute;
+    top: 20px;
+    right: -125px;
+    background: #152c4f;
+    color: white;
+    font-size: 9pt;
+    border-radius: 20px;
+    padding: 7px;
 }

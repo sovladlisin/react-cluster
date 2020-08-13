@@ -261,11 +261,11 @@ button.submit:hover {
 }
 
 button.select-all-items {
-    background: white;
-    color: #424e63;
-    font-size: 9pt;
-    padding: 5px;
-    float: right;
+    color: white;
+    font-size: 10pt;
+    position: fixed;
+    right: 25px;
+    top: 85px;
 }
 .item .thumbnail {
     width: 85px;
@@ -278,4 +278,19 @@ button.select-all-items {
     line-height: 22px;
     color: #ff4c4c;
     visibility: hidden;
+}
+
+button.item-nav {
+    position: fixed;
+    z-index: 1000;
+    top: 50%;
+    font-size: 27pt;
+    color: white;
+}
+
+button#left{
+    left: 2%;
+}
+button#right{
+    right: 2%;
 }

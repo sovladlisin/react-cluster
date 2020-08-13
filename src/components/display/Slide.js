@@ -1,5 +1,10 @@
 import React, { Component, Fragment } from 'react'
 import $, { data } from "jquery"
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getUser } from '../../actions/walls'
+
+
 
 
 export class Slide extends Component {
@@ -13,16 +18,36 @@ export class Slide extends Component {
     componentDidMount() {
         $('.slide-image').on("load", function () {
             $('.text-data').width($('.slide-image').width())
+            $('.text-data').height($('.slide-image').height())
         })
         $(window).resize(function () {
             $('.text-data').width($('.slide-image').width())
+            $('.text-data').height($('.slide-image').height())
         });
-
-        this.setState({ url: this.props.item.image_url, text_data: this.props.item.bbs })
+        this.props.getUser(this.props.token.access_token, this.props.item.user_id)
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.item != prevProps.item) {
+            this.props.getUser(this.props.token.access_token, this.props.item.user_id)
+        }
+    }
+
+
+
+
+    static propTypes = {
+        item: PropTypes.object.isRequired,
+        getUser: PropTypes.func.isRequired,
+        getToken: PropTypes.func.isRequired,
+        user: PropTypes.array.isRequired,
+        token: PropTypes.object.isRequired
+    }
+
+
+
     renderTextData = () => {
-        const data = this.state.text_data
+        const data = this.props.item.bbs
         var text_data = {}
         data.map(item => {
 
@@ -53,7 +78,6 @@ export class Slide extends Component {
             }
         })
 
-        console.log(text_data)
 
         return Object.keys(text_data).map(id => {
             const temp = text_data[id]
@@ -77,24 +101,52 @@ export class Slide extends Component {
         })
     }
 
-
     render() {
         return (
             <Fragment>
-                <div className="slide" onClick={() => this.props.closeImage()}></div>
-                <div className="data">
-                    <div className="container">
-                        <img className="slide-image" src={this.state.url}></img>
-                    </div>
-                    <div className="container">
-                        <div className="text-data">
-                            {this.renderTextData()}
+                {Object.keys(this.props.item).length ?
+                    <Fragment>
+                        <div className="slide" onClick={() => this.props.closeImage()}></div>
+                        <div className="data">
+                            <div className="container">
+                                {Object.keys(this.props.user).length ?
+                                    <div className="slide-user-info">
+                                        <a href={"https://vk.com/id" + this.props.item.user_id}>
+                                            <img className="user-photo" src={this.props.user.response[0].photo_200}></img>
+                                        </a>
+                                        <p>{this.props.user.response[0].first_name} {this.props.user.response[0].last_name}</p>
+                                        <a id="post-link" href={"https://vk.com/wall" + this.props.item.user_id + "_" + this.props.item.post_id}>
+                                            Оригинал
+                                        </a>
+                                    </div>
+                                    : null}
+
+                                <img className="slide-image" src={this.props.item.image_url}></img>
+                            </div>
+                            <div className="container">
+                                <div className="text-data">
+                                    {this.renderTextData()}
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                        <button id="close-slide" onClick={this.props.closeImage}><i className="fas fa-times"></i></button>
+
+
+                    </Fragment>
+                    : null}
             </Fragment>
         )
     }
 }
 
-export default Slide
+
+const mapDispatchToProps = {
+    getUser,
+};
+
+const mapStateToProps = state => ({
+    user: state.walls.user,
+    token: state.login.token
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Slide);

@@ -6,7 +6,9 @@ export class ClusterPanelBody extends Component {
     state = {
         selected_items: [],
         items: [],
-        cluster: {}
+        cluster: {},
+
+        current_item: {}
     }
 
     componentDidMount() {
@@ -36,6 +38,7 @@ export class ClusterPanelBody extends Component {
         }
         else {
             this.props.openImage(item)
+            this.setState({ current_item: item })
         }
     }
 
@@ -46,6 +49,33 @@ export class ClusterPanelBody extends Component {
         else this.setState({ selected_items: this.state.items.map(item => { return item.id }) })
     }
 
+    nextItem = () => {
+        const current_item = this.state.current_item
+        const items = this.state.items
+        const id = items.indexOf(current_item)
+        if (id + 1 === items.length) {
+            this.props.openImage(items[0])
+            this.setState({ current_item: items[0] })
+        }
+        else {
+            this.props.openImage(items[id + 1])
+            this.setState({ current_item: items[id + 1] })
+        }
+    }
+
+    prevItem = () => {
+        const current_item = this.state.current_item
+        const items = this.state.items
+        const id = items.indexOf(current_item)
+        if (id - 1 < 0) {
+            this.props.openImage(items[items.length - 1])
+            this.setState({ current_item: items[items.length - 1] })
+        }
+        else {
+            this.props.openImage(items[id - 1])
+            this.setState({ current_item: items[id - 1] })
+        }
+    }
 
     renderItems = () => {
         const data = this.state.items
@@ -76,8 +106,14 @@ export class ClusterPanelBody extends Component {
                     <div className="panel-body">
                         <button id="close" onClick={this.props.closeCluster}><i className="fas fa-times"></i></button>
                         <p className="title">Набор №{this.state.cluster.cluster_id}</p>
-                        <button className="select-all-items" onClick={this.selectAllItems}>{
-                            check_selected ? <p>Снять выделение</p> : <p>Выбрать все</p>}</button>
+                        <button
+                            class="select-all-items"
+                            onClick={this.selectAllItems}>
+                            {check_selected ?
+                                <span><i className="far fa-check-circle"></i></span> :
+                                <span><i className="far fa-circle"></i></span>
+                            } Выделить все
+                        </button>
                         <div className="clusters">
                             <p className="block-title">Объектов выбрано: {this.state.selected_items.length}</p>
                             <div className="items">
@@ -86,6 +122,12 @@ export class ClusterPanelBody extends Component {
                         </div>
                     </div>
                 </div>
+                {this.props.slide_state ?
+                    <Fragment>
+                        <button onClick={this.nextItem} className="item-nav" id="right"><i className="fas fa-arrow-right"></i></button>
+                        <button onClick={this.prevItem} className="item-nav" id="left"><i className="fas fa-arrow-left"></i></button>
+                    </Fragment> : null}
+
             </Fragment>
         )
     }

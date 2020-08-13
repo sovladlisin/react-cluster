@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, LOGIN_FAIL, SET_CODE, GET_TOKEN, CHECK_TOKEN, SET_TOKEN } from "../../actions/types"
+import { LOGIN_SUCCESS, LOGIN_FAIL, SET_CODE, GET_TOKEN, CHECK_TOKEN, SET_TOKEN, GET_ACCOUNT_INFO } from "../../actions/types"
 import { handleLogin } from '../../actions/auth/login'
 
 
@@ -6,6 +6,7 @@ const initialState = {
     name: '',
     error: '',
     token: null,
+    account_info: {}
 }
 
 export default function user(state = initialState, action) {
@@ -24,6 +25,9 @@ export default function user(state = initialState, action) {
 
         case SET_TOKEN:
             return { ...state, token: action.payload }
+
+        case GET_ACCOUNT_INFO:
+            return { ...state, account_info: action.payload }
 
         case CHECK_TOKEN:
             {
@@ -61,7 +65,6 @@ function hehe() {
         scope,
         v,
     };
-    console.log('1234')
     const searchParams = "https://oauth.vk.com/authorize?" + querystring.stringify(data);
 
     window.location.replace(searchParams);
