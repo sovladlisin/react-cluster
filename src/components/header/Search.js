@@ -8,7 +8,9 @@ export class Search extends Component {
     state = {
         selected_filter: null,
         alert: false,
-        alert_message: ""
+        alert_message: "",
+
+        keys: []
     }
 
     static propTypes = {
@@ -56,13 +58,53 @@ export class Search extends Component {
         return null
     }
 
+    renderKeys = () => {
+        return this.state.keys.map(key => {
+            return (
+                <Fragment>
+                    <p>{key}<i className="fas fa-times" onClick={() => { this.removeKeyword(key) }}></i></p>
+                </Fragment>
+            )
+        })
+    }
+
+    removeKeyword = (key) => {
+        var keys = this.state.keys
+        const id = keys.indexOf(key);
+        if (id > -1) {
+            keys.splice(id, 1);
+        }
+        this.setState({ keys: keys })
+    }
+
+    onInputChange = (e) => {
+        var text = e.target.value
+        if (text === ' ') {
+            e.target.value = ''
+        }
+        else if (text[text.length - 1] === ' ') {
+            e.target.value = ''
+            this.setState({ keys: [...this.state.keys, text.substring(0, text.length - 1)] })
+        }
+    }
+
+    onInputSubmit = (e) => {
+        if (e.keyCode === 13) {
+            const search = this.state.keys.map(item => { return item + ' ' })
+            alert('Будет поиск по словам: ' + search)
+        }
+    }
+
     render() {
         return (
             <Fragment>
                 <div className="header">
                     <div className="search">
-                        <input></input>
                         <p><i className="fas fa-search"></i></p>
+                        <div className="keywords">
+                            {this.renderKeys()}
+                        </div>
+                        <input onKeyUp={this.onInputSubmit} onSubmit={this.onInputChange} onChange={this.onInputChange}></input>
                     </div>
                     <button title="Скачать пользователей" id="download-users" onClick={this.downloadUserList}>
                         <p><i className="fas fa-file-download"></i></p>

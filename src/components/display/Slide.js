@@ -111,13 +111,22 @@ export class Slide extends Component {
                             <div className="container">
                                 {Object.keys(this.props.user).length ?
                                     <div className="slide-user-info">
-                                        <a href={"https://vk.com/id" + this.props.item.user_id}>
+                                        <a target="_blank" rel="noopener noreferrer" href={"https://vk.com/id" + this.props.item.user_id}>
                                             <img className="user-photo" src={this.props.user.response[0].photo_200}></img>
                                         </a>
                                         <p>{this.props.user.response[0].first_name} {this.props.user.response[0].last_name}</p>
-                                        <a id="post-link" href={"https://vk.com/wall" + this.props.item.user_id + "_" + this.props.item.post_id}>
-                                            Оригинал
+                                        <p>ID пользователя: {this.props.item.user_id}</p>
+                                        <a target="_blank" rel="noopener noreferrer" href={"https://vk.com/id" + this.props.item.user_id}>
+                                            {"https://vk.com/id" + this.props.item.user_id}
                                         </a>
+                                        <p>Пост:</p>
+                                        <a target="_blank" rel="noopener noreferrer" href={"https://vk.com/wall" + this.props.item.user_id + "_" + this.props.item.post_id}>
+                                            {"https://vk.com/wall" + this.props.item.user_id + "_" + this.props.item.post_id}
+                                        </a>
+
+                                        {/* <a id="post-link" href={"https://vk.com/wall" + this.props.item.user_id + "_" + this.props.item.post_id}>
+                                            Оригинал
+                                        </a> */}
                                     </div>
                                     : null}
 

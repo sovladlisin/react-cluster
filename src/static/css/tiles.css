@@ -44,7 +44,7 @@
     line-height: 25px;
     text-align: center;
     right: -13px;
-    top: -14px;
+    top: 86px;
     font-size: 10pt;
     border-radius: 20px;
 }
@@ -135,13 +135,13 @@ div.navigation :last-child {float: right;padding-right: 13px;}
 
 .tile .meta-data{
     position: absolute;
-    background: #152c4f;
-    color: white;
+    color: #152c4f;
     font-size: 9pt;
     width: 100px;
+    font-weight: 600;
     height: 20px;
     opacity: 0.9;
-    bottom: -7px;
+    bottom: -32px;
     text-align: center;
     line-height: 20px;
     left: 50%;
@@ -152,8 +152,8 @@ button#select-all-clusters {
     position: absolute;
     top: 20px;
     right: -125px;
-    background: #152c4f;
-    color: white;
+    color: #152c4f;
+    font-weight: 500;
     font-size: 9pt;
     border-radius: 20px;
     padding: 7px;
