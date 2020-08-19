@@ -2,7 +2,7 @@ import axios from 'axios';
 import { GET_CLUSTERS, GET_GROUP_STATUS, UPDATE_CERTIFICATE_BLOCKS, SEARCH } from './types';
 import $, { data } from "jquery"
 
-const url = "http://80.89.204.142:14289/api/"
+const url = "https://80.89.204.142:14289/api/"
 
 
 // Метод: GET api/get_all_clusters
