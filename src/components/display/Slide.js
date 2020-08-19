@@ -3,6 +3,7 @@ import $, { data } from "jquery"
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getUser } from '../../actions/walls'
+import { updateCertificateBlocks } from '../../actions/clusters'
 
 
 
@@ -11,7 +12,10 @@ export class Slide extends Component {
 
     state = {
         url: "",
-        text_data: []
+        text_data: [],
+        text_blocks: [],
+
+        selected_block: { id: null, h: null, w: null }
     }
 
 
@@ -25,13 +29,15 @@ export class Slide extends Component {
             $('.text-data').height($('.slide-image').height())
         });
         this.props.getUser(this.props.token.access_token, this.props.item.user_id)
+        this.setState({ text_blocks: this.transformTextBlocks(this.props.item.text_blocks) })
     }
 
-    componentDidUpdate(prevProps) {
-        if (this.props.item != prevProps.item) {
-            this.props.getUser(this.props.token.access_token, this.props.item.user_id)
-        }
-    }
+    // componentDidUpdate(prevProps) {
+    //     if (this.props.item != prevProps.item) {
+    //         this.props.getUser(this.props.token.access_token, this.props.item.user_id)
+    //         console.log('test')
+    //     }
+    // }
 
 
 
@@ -40,6 +46,7 @@ export class Slide extends Component {
         item: PropTypes.object.isRequired,
         getUser: PropTypes.func.isRequired,
         getToken: PropTypes.func.isRequired,
+        updateCertificateBlocks: PropTypes.func.isRequired,
         user: PropTypes.array.isRequired,
         token: PropTypes.object.isRequired
     }
@@ -47,7 +54,53 @@ export class Slide extends Component {
 
 
     renderTextData = () => {
-        const data = this.props.item.bbs
+        const data = this.state.text_blocks
+
+        if (data != undefined) {
+
+            return data.map(block => {
+                var font_size = block.h * 40 > 0.7 ? block.h * 40 : 0.7
+                font_size = font_size > 1.2 ? 1.2 : font_size
+
+                const style = {
+                    fontSize: font_size + 'em',
+                }
+                if (this.state.selected_block.id === block.y) {
+                    style['height'] = this.state.selected_block.h
+                    return (<textarea onChange={this.onTextAreaChange} name={block.y} style={style}>{block.text}</textarea>)
+                }
+                return (
+                    <p onClick={(e) => { this.selectBlock(e, block.y) }} style={style} > {block.text}</p >
+                )
+            })
+        }
+
+        return null
+    }
+
+    selectBlock = (e, h) => {
+        this.setState({ selected_block: { id: h, h: $(e.target).height(), w: $(e.target).width() } })
+    }
+
+    onTextAreaChange = (e) => {
+        const name = e.target.name
+        const value = e.target.value
+
+        var text_blocks = this.state.text_blocks
+
+
+
+        var foundIndex = text_blocks.findIndex(item => item.y + '' == name)
+        var new_data = text_blocks[foundIndex]
+        new_data['text'] = value
+        console.log(new_data)
+        text_blocks[foundIndex] = new_data
+
+
+        this.setState({ text_blocks: text_blocks })
+    }
+
+    transformTextBlocks = (data) => {
         var text_data = {}
         data.map(item => {
 
@@ -60,45 +113,43 @@ export class Slide extends Component {
 
             if (Object.keys(text_data).length == 0) {
                 text_data[y] = []
-                text_data[y] = [...text_data[y], { height: height, width: width, x: x, y: y, text: text }]
+                text_data[y] = [...text_data[y], { h: height, w: width, x: x, y: y, text: text }]
             }
             else {
                 for (var i = 0; i < Object.keys(text_data).length; i++) {
                     const key = Object.keys(text_data)[i]
-                    if (Math.abs(key - y) < 0.07 && Math.abs(height - text_data[key][0].height) < 0.02) {
-                        text_data[key] = [...text_data[key], { height: height, width: width, x: x, y: y, text: text }]
+                    if (Math.abs(key - y) < 0.07 && Math.abs(height - text_data[key][0].h) < 0.02) {
+                        text_data[key] = [...text_data[key], { h: height, w: width, x: x, y: y, text: text }]
                         break
                     }
                     if (i == Object.keys(text_data).length - 1) {
                         text_data[y] = []
-                        text_data[y] = [...text_data[y], { height: height, width: width, x: x, y: y, text: text }]
+                        text_data[y] = [...text_data[y], { h: height, w: width, x: x, y: y, text: text }]
                         break
                     }
                 }
             }
         })
 
-
-        return Object.keys(text_data).map(id => {
+        var new_text_blocks = []
+        Object.keys(text_data).map(id => {
             const temp = text_data[id]
-            if (temp[0] != undefined) {
-                var p_text = ''
-                temp.map(line => {
-                    p_text = p_text + line.text + ' '
-                })
 
+            var new_text = ""
+            temp.map(line => {
+                new_text = new_text + line.text + ' '
+            })
+            var new_block = { h: temp[0].h, w: temp[0].w, x: temp[0].x, y: temp[0].y, text: new_text }
 
-                var font_size = temp[0].height * 40 > 0.7 ? temp[0].height * 40 : 0.7
-                font_size = font_size > 1.2 ? 1.2 : font_size
-
-                const style = {
-                    fontSize: font_size + 'em',
-                }
-                return (
-                    <p style={style}>{p_text}</p>
-                )
-            }
+            new_text_blocks.push(new_block)
         })
+
+        return new_text_blocks
+    }
+
+    saveTextBlocks = () => {
+        const data = this.state.text_blocks.filter(item => item.text.length > 0)
+        this.props.updateCertificateBlocks(this.props.item.id, data)
     }
 
     render() {
@@ -133,6 +184,7 @@ export class Slide extends Component {
                                 <img className="slide-image" src={this.props.item.image_url}></img>
                             </div>
                             <div className="container">
+                                <button onClick={this.saveTextBlocks} className="save-text-blocks"><i className="far fa-save"></i>Сохранить изменения</button>
                                 <div className="text-data">
                                     {this.renderTextData()}
                                 </div>
@@ -151,6 +203,7 @@ export class Slide extends Component {
 
 const mapDispatchToProps = {
     getUser,
+    updateCertificateBlocks
 };
 
 const mapStateToProps = state => ({

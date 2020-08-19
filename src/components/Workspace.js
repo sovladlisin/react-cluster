@@ -109,12 +109,12 @@ export class Workspace extends Component {
                     handleEventType={"keyup"}
                     onKeyEvent={(key, e) => this.ctrlUp()}
                 />
-                {/* {!this.state.left_panel_state ?
+                {!this.state.left_panel_state ?
                     <button title="Панель управления" id="toggle-left-panel" onClick={this.toggleLeftPanel}>
                         <p><i className="fas fa-chart-pie"></i></p>
                         <div className="highlight"></div>
                     </button>
-                    : null} */}
+                    : null}
                 <Search toggleFilterMenu={this.toggleFilterMenu} filter_menu_state={this.state.filter_menu_state} />
                 {this.state.slide_state ?
                     <Slide
@@ -127,10 +127,10 @@ export class Workspace extends Component {
                     opened_cluster={this.state.current_cluster.cluster_id}
                     openCluster={this.openCluster}
                     cluster_panel_state={this.state.cluster_panel_state} />
-                {/* {this.state.left_panel_state ?
+                {this.state.left_panel_state ?
                     <LeftPanelBody
                         setGroupData={this.setGroupData}
-                        toggleLeftPanel={this.toggleLeftPanel} /> : null} */}
+                        toggleLeftPanel={this.toggleLeftPanel} /> : null}
                 {this.state.cluster_panel_state ?
                     <ClusterPanelBody
                         openImage={this.openImage}

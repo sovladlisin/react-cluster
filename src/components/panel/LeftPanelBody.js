@@ -3,7 +3,7 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { getClusters } from '../../actions/clusters';
+import { getClusters, getGroupStatus } from '../../actions/clusters';
 
 export class LeftPanelBody extends Component {
 
@@ -15,18 +15,14 @@ export class LeftPanelBody extends Component {
 
     static propTypes = {
         getCluster: PropTypes.func.isRequired,
+        getGroupStatus: PropTypes.func.isRequired,
         current_clusters: PropTypes.array.isRequired,
+        groups: PropTypes.object.isRequired
     }
 
 
     componentDidMount() {
-        // TODO: get actuall groups
-        var groups = []
-        for (var i = 0; i < 4; i++) {
-            groups.push({ id: i, name: "Группа " + i, progress: Math.random() })
-        }
-
-        this.setState({ groups: groups })
+        this.props.getGroupStatus()
     }
 
     componentWillReceiveProps(nextProps) {
@@ -36,41 +32,64 @@ export class LeftPanelBody extends Component {
     }
 
     refreshGroup = (id) => {
-        console.log("TODO: refresh request / id = ", id)
+        this.props.getGroupStatus()
     }
 
     selectGroup = (id) => {
-        this.props.getClusters(id, id)
-        this.setState({ selected_group: id })
+        // this.props.getClusters(id, id)
+        // this.setState({ selected_group: id })
     }
 
     renderGroups = () => {
-        const self = this
-        const groups = this.state.groups
+        // const self = this
+        // const groups = this.state.groups
 
-        return groups.map(item => {
+        const groups = this.props.groups
+
+        return Object.keys(groups).map(id => {
+            const group = groups[id]
+
+            const progress = parseInt(group.status.substring(0, group.status.length - 1)) / 100
             const style = {
-                width: (item.progress * 224) + "px"
+                width: (progress * 224) + "px"
             }
-            const highlight_style = item.id == this.state.selected_group ? {
-                visibility: "visible"
-            } : null
-
-
-
             return (
                 <Fragment>
                     <div className="group-line">
-                        <p onClick={() => this.selectGroup(item.id)}>{item.name}</p>
-                        <div className="group-highlight" style={highlight_style}><i class="fas fa-eye"></i></div>
+                        <button className="group-name" title={group.name} onClick={() => this.selectGroup(group.id)}>{group.name}</button>
                         <div className="progress">
                             <div className="bar" style={style}></div>
                         </div>
-                        <button onClick={() => self.refreshGroup(item.id)}><i className="fas fa-sync-alt"></i></button>
+                        <button onClick={() => this.refreshGroup(group.id)}><i className="fas fa-sync-alt"></i></button>
                     </div>
                 </Fragment >
             )
         })
+
+        // return groups.map(item => {
+        //     const style = {
+        //         width: (item.progress * 224) + "px"
+        //     }
+        //     const highlight_style = item.id == this.state.selected_group ? {
+        //         visibility: "visible"
+        //     } : null
+
+
+
+        //     return (
+        //         <Fragment>
+        //             <div className="group-line">
+        //                 <p onClick={() => this.selectGroup(item.id)}>{item.name}</p>
+        //                 <div className="group-highlight" style={highlight_style}><i class="fas fa-eye"></i></div>
+        //                 <div className="progress">
+        //                     <div className="bar" style={style}></div>
+        //                 </div>
+        //                 <button onClick={() => self.refreshGroup(item.id)}><i className="fas fa-sync-alt"></i></button>
+        //             </div>
+        //         </Fragment >
+        //     )
+        // })
+
     }
 
     render() {
@@ -108,11 +127,11 @@ export class LeftPanelBody extends Component {
 }
 
 const mapDispatchToProps = {
-    getClusters
+    getGroupStatus
 };
 
 const mapStateToProps = state => ({
-    current_clusters: state.clusters.selected,
+    groups: state.clusters.group_status,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(LeftPanelBody);
