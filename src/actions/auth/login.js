@@ -13,7 +13,7 @@ export function handleLogin() {
         var client_id = 7560681
         var display = 'page'
         // var redirect_uri = "http://localhost:3000/service-list"
-        var redirect_uri = "https://cluster-management.herokuapp.com/service-list"
+        var redirect_uri = "http://cluster-management.herokuapp.com/service-list"
 
 
         var response_type = 'token'
