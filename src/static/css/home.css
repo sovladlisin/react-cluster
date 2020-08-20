@@ -42,7 +42,7 @@ p.link {
     left: 10%;
     border-radius: 20px;
     font-size: 11pt;
-    color: #2a467d;
+    color: #4a76a8;
     background: white;
     transition: 0.3s;
 }
@@ -84,7 +84,7 @@ p.service-list-head {
     padding: 5px 10px;
     border-radius: 20px;
     font-size: 11pt;
-    color: #2a467d;
+    color: #4a76a8;
     background: white;
     transition: 0.3s;
     float: left;

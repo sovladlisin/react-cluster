@@ -3,7 +3,7 @@
     height: 100%;
     top: 0;
     position: fixed;
-    background: #152c4ff5;
+    background: #4a76a8f8;
     transition: 0.3s;
     z-index: 50;
 }
@@ -20,7 +20,7 @@
 #toggle-left-panel{
     width: 50px;
     height: 50px;
-    background: #152c4f;
+    background: #4a76a8;
     color: white;
     font-size: 16pt;
     transition: 0.3s;
@@ -62,7 +62,7 @@
     width: 20px;
     height: 20px;
     cursor: pointer;
-    color: #445065;
+    color: #4a76a8;
 }
 
 .panel-body {
@@ -135,7 +135,7 @@ p.block-title {
     line-height: 10px;
 }
 .group-line button:hover {
-    color: #445065;
+    color: #4a76a8;
     background-color: white;
     border-radius: 30px;
     
@@ -208,7 +208,7 @@ button.submit {
 
 button.submit:hover {
     background: white;
-    color: #434f64;
+    color: #4a76a8;
     border: none;
     cursor: pointer;
 }
@@ -220,7 +220,7 @@ button.submit:hover {
     position: relative;
     cursor: pointer;
     transition: 0.1s;
-    border: 2px solid #424e63;
+    border: 2px solid #4a76a8;
 }
 
 .item:hover{
@@ -257,7 +257,7 @@ button.submit:hover {
     bottom: 0;
     right: 0;
     font-size: 7pt;
-    background: #445065;
+    background: #4a76a8;
     color: white;
     padding: 4px;
     margin: 0 2px 2px 0;

@@ -10,7 +10,7 @@
 .header button {
     width: 50px;
     height: 50px;
-    background: #152c4f;
+    background: #4a76a8;
     color: white;
     font-size: 16pt;
     transition: 0.3s;
@@ -59,7 +59,7 @@
 
 .keywords>p {
     float: left;
-    background: cadetblue;
+    background: #4a76a8;
     color: white;
     border-radius: 25px;
     padding: 3px 7px;
@@ -82,7 +82,7 @@
 .filter-menu {
     margin: 0 auto;
     width: 880px;
-    background: #152c4ff8;
+    background: #4a76a8f8;
     padding: 10px;
     color: white;
     position: absolute;
@@ -107,11 +107,11 @@
 
 .filter-menu button:hover {
     background-color: white;
-    color: #38455b;
+    color: #4a76a8;
 }
 
 .highlight {
-    border-bottom: 2px solid #152c4f;
+    border-bottom: 2px solid #4a76a8;
     width: 50px;
     height: 55px;
     opacity: 0;
@@ -131,7 +131,7 @@
 .slide {
     width: 100%;
     height: 100%;
-    background: #152c4ff5;
+    background: #224b7af6;
     z-index: 100;
     position: absolute;
     top: 0;
@@ -203,7 +203,7 @@
 }
 .slide-user-info a#post-link {
     float: left;
-    color: #1d3355;
+    color: #4a76a8;
     line-height: 34px;
     margin-left: 35px;
     background: white;

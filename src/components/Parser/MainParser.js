@@ -22,7 +22,9 @@ export class MainParser extends Component {
 
     state = {
         post_link: "",
-        posts: []
+        posts: [],
+
+        show_all_posts: []
     }
 
     componentDidMount() {
@@ -73,7 +75,8 @@ export class MainParser extends Component {
 
             console.log(content)
 
-            var link = "https://vk.com/wall" + content.from_id + "_" + content.id
+            const post_custom_id = content.from_id + "_" + content.id
+            var link = "https://vk.com/wall" + post_custom_id
             var name = ''
             var photo = ''
             if (owner.first_name == undefined) {
@@ -87,17 +90,20 @@ export class MainParser extends Component {
 
             const views_count = content.views === undefined ? null : content.views.count
 
+            const show_check = this.state.show_all_posts.includes(post_custom_id) ? false : true
+            const text_style = show_check ? { height: '150px', overflow: 'hidden' } : {}
             return (
                 <Fragment>
                     <div className="post">
                         <div className="post-header">
                             <img src={photo}></img>
-                            <p className="name"><a href={link}>{name}</a></p>
+                            <p className="name"><a target="_blank" rel="noopener noreferrer" href={link}>{name}</a></p>
                         </div>
                         <div className="post-body">
-                            <div className="text">
+                            <div className="text" style={text_style}>
                                 <ReactLinkify>{content.text}</ReactLinkify>
                             </div>
+                            {show_check ? <p id="show-all" onClick={() => { this.showAll(post_custom_id) }}>Показать полностью...</p> : null}
                             <div className="attachments">
                                 {this.renderAttachments(content.attachments)}
                             </div>
@@ -112,6 +118,10 @@ export class MainParser extends Component {
                 </Fragment>
             )
         })
+    }
+
+    showAll = (id) => {
+        this.setState({ show_all_posts: [...this.state.show_all_posts, id] })
     }
 
     renderAttachments = (data) => {
@@ -146,8 +156,7 @@ export class MainParser extends Component {
     render() {
         return (
             <Fragment>
-                <div className="background" style={{ backgroundImage: 'url("' + Background + '")' }}></div>
-
+                {/* <div className="background" style={{ backgroundImage: 'url("' + Background + '")' }}></div> */}
                 <div className="add-new-post">
                     <input id="post_input" name="post_link" onChange={this.onChange} placeholder="Введите ссылку на запись"></input>
                     <button id="submit_post" onClick={this.submitPostByLink}>Загрузить запись</button>
