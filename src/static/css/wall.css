@@ -75,7 +75,7 @@ button#submit_post:hover{
 
 .attachments {
     margin: 10px 0;
-    width: 560px;
+    width: 500px;
     display: grid;
     align-items: center;
     grid-template-columns: auto;
@@ -92,7 +92,7 @@ button#submit_post:hover{
 }
 
 .photo img {
-    width: 560px;
+    width: 500px;
 }
 
 .post-footer {
