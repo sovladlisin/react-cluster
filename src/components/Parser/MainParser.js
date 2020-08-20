@@ -90,8 +90,15 @@ export class MainParser extends Component {
 
             const views_count = content.views === undefined ? null : content.views.count
 
-            const show_check = this.state.show_all_posts.includes(post_custom_id) ? false : true
-            const text_style = show_check ? { height: '150px', overflow: 'hidden' } : {}
+            var text_style = {}
+            var show_check = true
+
+            if (content.text.length > 250) {
+                show_check = this.state.show_all_posts.includes(post_custom_id) ? false : true
+                text_style = show_check ? { height: '150px', overflow: 'hidden' } : {}
+            }
+
+
             return (
                 <Fragment>
                     <div className="post">
