@@ -68,7 +68,7 @@ export class MainParser extends Component {
     }
 
     renderPosts = () => {
-        const posts = this.state.posts.reverse()
+        const posts = this.state.posts
         return posts.map(post => {
             const owner = post.owner_data.response[0]
             const content = post.post_data.response[0]
