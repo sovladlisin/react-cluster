@@ -30,13 +30,15 @@ export function handleLogin() {
         // };
         // const searchParams = "https://oauth.vk.com/authorize?" + querystring.stringify(data);
 
+
+
         // window.location.replace(searchParams);
         const url = "http://80.89.204.142:14289/api/"
         const data = { 'certificate_id': 1, 'text_blocks': [] }
         $.ajax({
             url: url + `update_cetrificate_blocks`,
             type: "POST",
-            data: data,
+            data: JSON.stringify(data),
             dataType: 'json',
         }).done(function (data) {
             console.log(data.response)
