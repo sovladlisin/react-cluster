@@ -39,7 +39,7 @@ export function handleLogin() {
             url: url + `update_cetrificate_blocks`,
             type: "POST",
             data: JSON.stringify(data),
-            contentType:"application/json",
+            dataType:"json",
         }).done(function (data) {
             console.log(data.response)
         })
